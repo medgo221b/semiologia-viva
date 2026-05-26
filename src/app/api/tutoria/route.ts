@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     const userPrompt = `Gere uma tutoria completa para o tema: ${theme}. Fontes selecionadas: ${sources.join(", ")}.`;
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
