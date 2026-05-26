@@ -10,32 +10,28 @@ export async function POST(req: Request) {
     const { theme } = await req.json();
 
     const systemPrompt = `
-      Você é um tutor médico experiente, especialista em PBL e em aprendizado acelerado.
-      Sua tarefa é gerar um HTML ÚNICO, COMPLETO, MODERNO e TOTALMENTE FUNCIONAL baseado no tema fornecido.
+      VOCÊ É O TUTOR MESTRE MEDRAIZ. Sua tarefa é gerar um GUIA DE ESTUDOS MÉDICO EXAUSTIVO e PROFISSIONAL em um ÚNICO arquivo HTML. 
+      O arquivo deve ser GIGANTE e COMPLETO. Não resuma. Não economize palavras. 
       
-      ESTILO E DESIGN:
-      - Use Modo Escuro moderno (Fundo #06080d).
-      - Use fontes elegantes (Playfair Display para títulos, Plus Jakarta Sans para texto).
-      - O design deve ser baseado em abas (Tabs) para organizar o conteúdo.
-      - Use cores: Verde-água (#42c97a) como principal, Azul (#5bb8f5) para links/destaques.
-      - O layout deve ser responsivo e limpo (Shadcn/UI style).
+      ESTILO VISUAL (OBRIGATÓRIO):
+      - Use o CSS do modelo fornecido (Modo Escuro #06080d, Playfair Display, Plus Jakarta Sans).
+      - O design DEVE ser em abas funcionais via JavaScript (Vanilla).
+      - Cores: Verde-água (#42c97a) e Azul (#5bb8f5).
+      
+      CONTEÚDO OBRIGATÓRIO (SIGA À RISCA):
+      1. ABA TUTORIA: Texto extremamente denso. Divida em: Introdução, Fisiologia Profunda, Fisiopatologia (mecanismos moleculares), Quadro Clínico detalhado e Manejo baseado em diretrizes (SBC/SBP/MS). Cite Porto, Bates e Robbins.
+      2. ABA QUESTÕES IA: Gere EXATAMENTE 50 questões de múltipla escolha interativas. Cada questão deve ter feedback imediato (Verde/Vermelho), explicação de CADA alternativa e um ranking de acertos funcional.
+      3. ABA FLASHCARDS: Gere EXATAMENTE 40 flashcards com efeito de giro 3D (CSS transform) cobrindo conceitos, valores de referência e mnemônicos.
+      4. ABA QUADROS COMPARATIVOS: Mínimo 3 tabelas complexas comparando diagnósticos diferenciais, classificações ou condutas.
+      5. ABA PARETO (80/20): Destaque os 5 pontos de prova, 10 pegadinhas clássicas e um guia de 3 etapas usando a Técnica de Feynman para o tema.
 
-      ESTRUTURA OBRIGATÓRIA DAS ABAS:
-      1. Tutoria: Explicação passo a passo, relações importantes, conceitos essenciais, fisiologia e fisiopatologia.
-      2. Questões: 20 questões interativas. Ao clicar na alternativa, deve mudar para verde (acerto) ou vermelho (erro). Abaixo, exibir explicação clara e contador de acertos.
-      3. Flashcards: 20 flashcards interativos que viram ao clicar.
-      4. Quadros Comparativos: Tabelas organizadas comparando pontos chave.
-      5. Pareto (80/20): O que mais cai, pegadinhas, termos essenciais e dicas de prova.
-
-      REFERÊNCIAS BASE:
-      - Porto (Semiologia Médica), Bates (Propedêutica), Robbins (Patologia), Guyton (Fisiologia).
-
-      SAÍDA:
-      - Retorne APENAS o código HTML completo dentro de uma string. Não inclua explicações fora do código.
-      - O HTML deve conter todo o CSS e JS (Vanilla) necessários dentro das tags <style> e <script>.
+      REGRAS TÉCNICAS:
+      - Retorne APENAS o código HTML funcional.
+      - NÃO use bibliotecas externas de JS (além de fontes Google). Tudo deve estar no arquivo.
+      - A IA deve continuar escrevendo até o limite máximo de tokens para garantir a profundidade.
     `;
 
-    const userPrompt = `Gere o guia de estudos completo em HTML para o tema: ${theme}`;
+    const userPrompt = `TEMA: ${theme}. Gere o Portal de Estudos COMPLETO e DENSO agora. Lembre-se: 50 questões e 40 flashcards.`;
 
     const response = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
@@ -43,7 +39,8 @@ export async function POST(req: Request) {
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ],
-      temperature: 0.6,
+      temperature: 0.5, // Menor temperatura para mais consistência técnica
+      max_completion_tokens: 8192, // Aumentado para permitir a saída gigante
     });
 
     const htmlContent = response.choices[0].message.content || "";
