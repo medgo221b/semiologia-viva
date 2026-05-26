@@ -1,8 +1,8 @@
-import { OpenAI } from "openai";
+import Groq from "groq-sdk";
 import { NextResponse } from "next/server";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -24,11 +24,10 @@ export async function POST(req: Request) {
       CONTEXTO DO CASO:
       - Nome: ${caseDetails.patient}
       - Queixa Principal: ${caseDetails.complaint}
-      - Histórico e Sintomas: (Extraídos do PRD MedRaiz)
     `;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: systemPrompt },
         ...messages
@@ -38,7 +37,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ content: response.choices[0].message.content });
   } catch (error) {
-    console.error("OpenAI Error:", error);
+    console.error("Groq Error:", error);
     return NextResponse.json({ error: "Falha ao processar resposta do paciente" }, { status: 500 });
   }
 }

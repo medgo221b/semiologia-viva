@@ -1,8 +1,8 @@
-import { OpenAI } from "openai";
+import Groq from "groq-sdk";
 import { NextResponse } from "next/server";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -27,8 +27,8 @@ export async function POST(req: Request) {
 
     const userPrompt = `Gere uma tutoria completa para o tema: ${theme}. Fontes selecionadas: ${sources.join(", ")}.`;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
