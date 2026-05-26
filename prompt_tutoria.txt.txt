@@ -1,0 +1,98 @@
+ATUAL
+
+
+Quero que você gere um HTML completo, moderno, responsivo e totalmente funcional em HTML, baseado no arquivo que eu anexar ou no tema que eu escrever em seguida. Você deverá agir como um tutor médico experiente, especialista em PBL e em aprendizado acelerado, explicando todo o conteúdo de forma acessível, porém tecnicamente correta. A estrutura desse HTML deve conter uma aba inicial onde eu posso digitar o tema desejado ou enviar um arquivo, e a partir disso todo o sistema deve ser automaticamente gerado com as abas de estudo. A primeira aba deve ser uma aba chamada Tutoria, onde você vai ensinar o conteúdo inteiro do arquivo ou do tema como um professor preparando para prova, explicando passo a passo, estabelecendo relações importantes, destacando conceitos essenciais e usando raciocínio clínico, fisiológico E FISIOPATOLOGIA. Depois dessa aba, o HTML deve conter uma aba com 50 questões geradas pela IA. As questões devem ser interativas, exibindo o assunto da questão e o nível de dificuldade no topo, contendo alternativas clicáveis que mudam para a cor verde quando eu acerto e para a cor vermelha quando eu erro, e logo abaixo deve aparecer uma explicação clara do motivo da alternativa correta e o motivo das incorretas. Deve existir também um contador ou ranking mostrando o percentual de acertos nas questões. Após isso, o HTML deve ter outra aba destinada às questões de professores, que eu posso enviar por um segundo arquivo; essas questões devem seguir exatamente a mesma estrutura das questões geradas pela IA, com assunto, nível, feedback de acerto/erro, explicação e cálculo de percentual de acertos. Depois, o HTML deve incluir uma aba de flashcards interativos contendo entre 20 e 40 flashcards com os principais conceitos do conteúdo, onde cada card gira ao ser clicado para mostrar sua resposta. Em seguida, deve existir uma aba com quadros comparativos, contendo vários quadros organizados visualmente, comparando os pontos importantes do conteúdo para facilitar a memorização. Por fim, o HTML deve ter uma aba de análise baseada no Princípio de Pareto (80/20), onde você deve apresentar os 20% do conteúdo que geram 80% da compreensão: conceitos essenciais, pegadinhas comuns, termos-chave, dicas de prova e um resumo estratégico final. O design geral deve ser moderno, intuitivo, minimalista, responsivo e completamente funcional com navegação em abas e interações suaves. O resultado final deve ser entregue em um único arquivo HTML, funcionando diretamente quando eu abrir no navegador.
+
+
+
+versão reduzida:
+
+Quero que você gere um HTML completo, moderno, responsivo e funcional, baseado nos arquivos anexados, focando nesses assuntos: INSERIR AQUI. Você deverá atuar como um tutor médico experiente, explicando todo o conteúdo de forma acessível e tecnicamente correta. A partir disso gerar automaticamente todas as abas de estudo. A primeira aba deve ser “Tutoria”, onde você explica todo o conteúdo passo a passo, destacando conceitos essenciais e relações importantes. Depois, inclua uma aba com 20 questões interativas geradas pela IA, exibindo assunto e nível da questão, alternativas clicáveis que mostram acerto (verde) ou erro (vermelho) e uma explicação abaixo, além de um contador de acertos. Em seguida, crie uma aba de flashcards interativos com 20 cards que viram ao clicar. Depois, inclua uma aba de quadros comparativos para reforçar diferenças e semelhanças entre os tópicos. Por fim, gere uma aba baseada no Princípio de Pareto (80/20), destacando o que mais cai: conceitos-chave, pegadinhas, termos essenciais e dicas de prova. O layout deve ser intuitivo, minimalista, responsivo e entregue em um único arquivo HTML totalmente funcional.
+
+
+faça outro com base nesses assuntos: determinação social da saúde; perspectiva histórica e cultural do processo saúde/doença/ cuidado; estigma; competência cultural; ambiente e saúde (saúde única/planetária/global); saúde da população indígena; saúde da população negra; espiritualidade; sexualidade; violência/cultura da paz), transfusión de sangue tb das testemunhas de jeova ( Patient Boold Management (PBM< gerenciamento do sangue do paciente), instituição que é base de nossa sociedade, a família. Como a família se caracteriza, quais suas transformações, como o médico deve compreender a pessoa com o olhar para a família. e que diferença essa abordagem faz no cuidado?
+Prepare-se lendo as páginas 48 a 54 do Guia Família em Situação de Vulnerabilidade ou Risco Psicosocial, de Ana Cristina Belizia Schlithler Mariane Ceron e Daniel Almeida Gonçalves, disponível nestes espaço.
+A partir da feitura, reflita: O que você tem observado, a partir dessas definições, nas famílias que conhece e convive? E nas famílias que tem visitado na prática de PMSUS? Traga suas observações para a aula. Como a filosofia e a medicina compreendem a relação espiritualidade e saúde? por exemplo, espiritualidade e depressão, espiritualidade e câncer etc)  saude mental na pop de rua, lgbt, saude das mulheres negras e pardas. com 40 flashcards e 40 questões com breve explicação.
+
+
+
+
+
+
+______________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+FAÇA UM HTML COMPLETO, COM 25 FLASHCARDS E 25 QUESTÕES DE NIVEIS MODERADOS, COM CONCEITOS E QUADROS COMPARATIVOS E GLOSSARIOS, TODOS DEVEM TER UMA ABA ESPECIFICA E SE O ASSUNTO TIVER TOPICOS, ADCIONE AS ABAS PRA FICAR MAIS FACIL IDENTIFICAR CADA OBJETIO DE ESTUDO, SEGUINDO UM PASSO A PASSO E DEPOIS UMA ABA DE COMPARAÇÃO ENTRE OS TOPICOS SE HOUVER NECESSIDADE E POR FIM, UMA ABA COM POSSIVEIS QUESTÕES DISCURSIVAS, COM RESPOSTA ESPERADA, UMA EXPLICAÇÃO SIMPLES DA RESPOSTA E UMA FORMA DE MEMORIZAR ELA E FINALMENTE UMA ABA FINAL COM BASE EM PARETO E FAYMAN, ME MOSTRANDO O QUE DEVO PRIORIZAR PARA DOMINAR ESSE ASSUNTO NA MINHA PROVA. SOBRE ESSES ASSUNTOS: , QUE EPOSSA CAIR NA MINHA PROVA DE MEDICINA DO 2º SEMESTRE NO METODO PBL DA ANHEMBRI MORUMBI. QUE O HTML SEJA RESPONSIVO, QUE AO CLICAR NA RESPOSTA ELE JA ME DIGA SE ACERTEI OU SE ERREI E UMA BREVE EXPLICAÇÃO E QUE SEJA SEPARADO POR ABAS.
+
+
+COM BASE NESSAS REFERENCIAS:
+
+ROBBINS E COTRAN - BASES PATOLOGICAS
+ABBAS - Imunologia Celular e Molecular
+TORTORA - MICROBIOLOGIA
+
+AMBOS EM SUAS VERSÕES MAIS RECENTES
+______________________________________________________________________________________________________________________________
+
+
+
+Analise os arquivos anexados e extraia todas as questões (objetivas e dissertativas) sobre Tolerância Imunológica e Reações de Hipersensibilidade (Tipos I a IV).
+
+Para cada questão:
+
+Dissertativas: Enunciado • Resposta esperada oficial • Explicação simplificada (linguagem do tutor) • Esquema/Mnemônico.
+
+Objetivas: Enunciado • Alternativas • Resposta correta (com justificativa) • Explicação simplificada • Dica de memorização.
+
+Gere um HTML completo, responsivo e didático, com modo escuro moderno (cor principal verde-água) e abas temáticas:
+
+Tolerância Imunológica (central, periférica, falhas)
+
+Hipersensibilidade Tipo I (IgE / Imediata)
+
+Hipersensibilidade Tipo II (Citotóxica)
+
+Hipersensibilidade Tipo III (Imunocomplexos)
+
+Hipersensibilidade Tipo IV (Tardia / Celular)
+
+Questões Mistas / Casos Clínicos
+
+Aba Estratégica — Como responder questões PBL (objetivas e dissertativas)
+
+Cada aba deve conter cards interativos com design limpo, destaque para termos-chave, listas e mnemônicos.
+
+Objetivo: criar um material completo de revisão para a SP 3.2 — “Tolerância Imunológica e Hipersensibilidade”, reunindo questões e explicações em linguagem clara, prática e visualmente agradável.
+
+
+__________________________________________________________________________________________________________________________
+
+
+Analise detalhadamente o conteúdo dos arquivos anexados e os seguintes Tópicos/SPs: [INSIRA AQUI OS ARQUIVOS E/OU OS NOMES DOS SPs QUE VOCÊ QUER REVISAR]. Este material será usado para a preparação de uma prova de Medicina (Metodologia PBL, 2º Semestre).
+
+Gere um guia de estudos completo em um único arquivo HTML responsivo e esteticamente agradável. A saída deve ser estruturada em abas, onde cada aba representa um SP/Tópico principal.
+
+O guia deve conter, obrigatoriamente, os seguintes elementos em cada aba de SP/Tópico:
+
+1.  <strong>RESUMO E CONCEITOS CHAVE (Foco na Regra 80/20):</strong>
+    * Um resumo didático e conciso do tema, aplicando o Princípio de Pareto para <strong>destacar os 20% do conteúdo mais relevante</strong> e de maior impacto clínico/teórico.
+    * Lista de 15 <strong>Termos-chave/Glossário</strong> com definições simples e objetivas.
+
+2.  <strong>TREINAMENTO INTERATIVO COM RANKING AO LADO, E NA LATERAL SUPERIOR INDICANDO O TEMA DA QUESTÃO E O NIVEL DE DIFICULDADE(Mini-Quiz de Nível Variado):</strong>
+    * Gere <strong>25 a 30 questões</strong> no formato mini-quiz interativo. As questões devem ter níveis variados, incluindo <strong>recordação simples</strong>, <strong>aplicação clínica</strong> e <strong>integração entre conceitos/SPs</strong>.
+    * Cada questão deve ter a <strong>resposta esperada</strong> e uma breve <strong>explicação didática</strong> ao ser clicada.
+
+3.  <strong>FLASHCARDS E MEMORIZAÇÃO ATIVA:</strong>
+    * Gere um bloco de <strong>25 a 30 flashcards</strong> (frente e verso) para revisão ativa dos conceitos e fatos mais secos.
+    * Inclua <strong>Acrônimos</strong> inteligentes ou <strong>Esquemas visuais</strong> para ajudar a memorizar listas, processos ou classificações (Ex: R.A.V.A.R. para Inflamação).
+
+4.  <strong>QUADROS COMPARATIVOS (Integração de Assuntos):</strong>
+    * Gere 2 a 3 quadros comparativos detalhados (ex: Vias de Sinalização, Fisiopatologia de Doenças) que integrem os conceitos-chave de diferentes matérias (MedLab vs. LabMorfo, etc.), focando nas diferenças que levam à discursiva.
+
+5.  <strong>ESTRATÉGIA FINAL (Pareto & Feynman):</strong>
+    * Uma aba final com um plano de estudos estratégico RESPONDIDO, indicando os <strong>5 tópicos de altíssima prioridade</strong> (Análise de Pareto) e um guia prático APLICANDO de 3 etapas para aplicar a <strong>Técnica de Feynman</strong> ao tema principal, visando a retenção de longo prazo.
+
+Mantenha a organização didática, o formato responsivo e a linguagem clara, focando na integração de conceitos, conforme exigido pelo método PBL.

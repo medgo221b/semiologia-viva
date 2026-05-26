@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NCS III · SP 2.2 — O Quê? Repita, por favor!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080d;--s1:#0c1018;--s2:#111620;--s3:#171e2b;
+  --bd:#1a2235;--bd2:#212c40;
+  --p:#5bb8f5;--pg:rgba(91,184,245,.1);--pb:rgba(91,184,245,.2);
+  --a:#f5a742;--ag:rgba(245,167,66,.09);
+  --v:#8b78f5;--vg:rgba(139,120,245,.09);
+  --g:#42c97a;--r:#e55c70;--t:#f5c842;
+  --tx:#dde3f0;--mu:#6b7899;--dim:#202c40;
+  --r2:11px;--rsm:7px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;line-height:1.75;min-height:100vh;}
+
+/* HEADER */
+header{background:linear-gradient(150deg,#06080d 0%,#0b1420 70%,#070e1a 100%);border-bottom:1px solid var(--bd);padding:20px 24px 0;position:sticky;top:0;z-index:300;}
+.hrow{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.hbadge{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.bp{background:rgba(91,184,245,.12);color:var(--p);border:1px solid rgba(91,184,245,.3);}
+.ba{background:rgba(245,167,66,.1);color:var(--a);border:1px solid rgba(245,167,66,.25);}
+h1{font-family:'Playfair Display',serif;font-size:clamp(16px,2.4vw,23px);font-weight:900;letter-spacing:-.01em;}
+h1 em{color:var(--p);font-style:normal;}
+
+/* QA NAV */
+.qanav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.qanav::-webkit-scrollbar{display:none;}
+.qabtn{background:none;border:none;color:var(--mu);font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:600;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;transition:all .2s;}
+.qabtn:hover{color:var(--tx);}
+.qabtn.active{color:var(--p);border-bottom-color:var(--p);}
+
+/* MOD NAV */
+.mnav{background:var(--s1);border-bottom:1px solid var(--bd);display:flex;overflow-x:auto;scrollbar-width:none;padding:0 24px;}
+.mnav::-webkit-scrollbar{display:none;}
+.mbtn{background:none;border:none;color:var(--mu);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:5px;}
+.mbtn:hover{color:var(--tx);}
+.mbtn.active{color:var(--a);border-bottom-color:var(--a);}
+
+/* PANELS */
+.qatp{display:none;}.qatp.active{display:block;}
+.modp{display:none;padding:28px 24px;max-width:1000px;margin:0 auto;}.modp.active{display:block;}
+
+/* SECTION HEADER */
+.stag{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--p);margin-bottom:4px;}
+.stit{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,26px);font-weight:900;color:var(--tx);letter-spacing:-.01em;line-height:1.2;margin-bottom:4px;}
+.ssub{font-size:13px;color:var(--mu);margin-bottom:24px;}
+
+/* CARDS */
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:20px 22px;margin-bottom:13px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--p);border-radius:3px 0 0 3px;}
+.card.a::before{background:var(--a);}
+.card.v::before{background:var(--v);}
+.card.g::before{background:var(--g);}
+.card.r::before{background:var(--r);}
+.card.t::before{background:var(--t);}
+.clbl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--p);margin-bottom:6px;}
+.card.a .clbl{color:var(--a);}
+.card.v .clbl{color:var(--v);}
+.card.g .clbl{color:var(--g);}
+.card.r .clbl{color:var(--r);}
+.card.t .clbl{color:var(--t);}
+.ctit{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--tx);margin-bottom:8px;}
+.cbod{color:var(--mu);}
+.cbod p{margin-bottom:8px;}
+.cbod strong{color:var(--tx);}
+.cbod em{color:var(--p);font-style:normal;}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:8px;}
+@media(max-width:600px){.g2,.g3{grid-template-columns:1fr;}}
+.mc{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rsm);padding:12px 14px;}
+.mct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--p);margin-bottom:4px;}
+.card.a .mct{color:var(--a);}
+.card.v .mct{color:var(--v);}
+.card.g .mct{color:var(--g);}
+.mc p{font-size:13px;color:var(--mu);}
+.mc p strong{color:var(--tx);}
+
+/* SCHEMA */
+.schem{background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rsm);padding:12px 15px;margin:10px 0;font-family:'Fira Mono',monospace;font-size:12px;color:#6dbad0;line-height:2;}
+.hbox{background:rgba(91,184,245,.05);border:1px solid rgba(91,184,245,.18);border-radius:var(--rsm);padding:12px 14px;margin:10px 0;font-size:13px;color:var(--mu);}
+.hbox strong{color:var(--p);}
+.hbox.a{background:rgba(245,167,66,.05);border-color:rgba(245,167,66,.2);}
+.hbox.a strong{color:var(--a);}
+.hbox.r{background:rgba(229,92,112,.05);border-color:rgba(229,92,112,.2);}
+.hbox.r strong{color:var(--r);}
+.hbox.g{background:rgba(66,201,122,.05);border-color:rgba(66,201,122,.2);}
+.hbox.g strong{color:var(--g);}
+.hbox.v{background:rgba(139,120,245,.05);border-color:rgba(139,120,245,.2);}
+.hbox.v strong{color:var(--v);}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.step{display:flex;gap:11px;align-items:flex-start;}
+.sn{min-width:24px;height:24px;border-radius:50%;background:var(--p);color:#06080d;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card.a .sn{background:var(--a);}
+.card.v .sn{background:var(--v);}
+.card.g .sn{background:var(--g);}
+.sb{font-size:13px;color:var(--mu);}
+.sb strong{color:var(--tx);}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;border-radius:var(--r2);overflow:hidden;border:1px solid var(--bd);margin:12px 0;}
+.tbl th{background:var(--s2);padding:10px 12px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--p);text-align:left;border-bottom:1px solid var(--bd);}
+.tbl th:first-child{color:var(--mu);}
+.tbl td{padding:10px 12px;font-size:12.5px;color:var(--mu);border-bottom:1px solid var(--bd);vertical-align:top;}
+.tbl td:first-child{font-weight:600;color:var(--tx);font-size:12px;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.01);}
+.tbl td strong{color:var(--tx);}
+.ok{color:var(--g);font-weight:600;}
+.err{color:var(--r);font-weight:600;}
+.am{color:var(--t);font-weight:600;}
+.vv{color:var(--v);font-weight:600;}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
+.chip{background:var(--s2);border:1px solid var(--bd2);color:var(--tx);font-size:11px;padding:4px 11px;border-radius:20px;font-family:'Fira Mono',monospace;}
+
+hr.dv{border:none;border-top:1px solid var(--bd);margin:22px 0;}
+
+/* QUIZ */
+.scorerow{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:14px 18px;display:flex;align-items:center;gap:15px;margin-bottom:18px;}
+.slbl{font-size:11px;color:var(--mu);}
+.sval{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--p);}
+.strk{flex:1;height:5px;background:var(--s2);border-radius:10px;overflow:hidden;}
+.sfil{height:100%;background:linear-gradient(90deg,var(--p),var(--g));border-radius:10px;width:0%;transition:width .4s;}
+.spct{font-size:13px;color:var(--mu);}
+.qdots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;}
+.qdot{width:8px;height:8px;border-radius:50%;background:var(--bd2);}
+.qdot.ok{background:var(--g);}
+.qdot.err{background:var(--r);}
+.qcard{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:18px 20px;margin-bottom:13px;}
+.qmeta{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap;}
+.qtag{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:20px;}
+.easy{background:rgba(66,201,122,.1);color:var(--g);}
+.med{background:rgba(245,200,66,.1);color:var(--t);}
+.hard{background:rgba(229,92,112,.1);color:var(--r);}
+.qsub{font-size:11px;color:var(--mu);font-family:'Fira Mono',monospace;}
+.qnum{margin-left:auto;font-size:11px;color:var(--dim);}
+.qtxt{font-size:14px;color:var(--tx);margin-bottom:12px;line-height:1.6;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--tx);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:10px 13px;text-align:left;transition:all .2s;display:flex;gap:8px;align-items:flex-start;}
+.opt:hover:not(:disabled){background:var(--pg);border-color:var(--p);}
+.opt.correct{background:rgba(66,201,122,.1);border-color:var(--g);color:var(--g);}
+.opt.wrong{background:rgba(229,92,112,.08);border-color:var(--r);color:var(--r);}
+.opt:disabled{cursor:default;}
+.optl{font-family:'Fira Mono',monospace;font-size:10.5px;font-weight:600;opacity:.5;min-width:16px;}
+.qfb{display:none;background:var(--s2);border-radius:var(--rsm);padding:11px 13px;margin-top:10px;font-size:12.5px;color:var(--mu);border-left:3px solid var(--p);}
+.qfb.show{display:block;}
+.qfb.cfb{border-color:var(--g);}
+.qfb.wfb{border-color:var(--r);}
+
+/* FLASHCARDS */
+.fc-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.fc-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p);padding:3px 10px;background:var(--pg);border-radius:20px;border:1px solid var(--pb);}
+.fcreset{background:var(--s1);border:1px solid var(--bd);color:var(--mu);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;}
+.fcreset:hover{color:var(--p);border-color:var(--p);}
+.fcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;margin-bottom:24px;}
+.fc{height:168px;perspective:1100px;cursor:pointer;}
+.fci{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.fc:hover .fci{transform:rotateY(4deg) scale(1.012);}
+.fc.flip .fci{transform:rotateY(180deg)!important;}
+.fcf,.fcb{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r2);padding:16px;}
+.fcf{background:var(--s1);border:1px solid var(--bd);display:flex;flex-direction:column;}
+.fcb{background:linear-gradient(135deg,#091d2b,#0b2133);border:1px solid rgba(91,184,245,.2);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;}
+.fcn{font-size:10px;color:var(--dim);font-family:'Fira Mono',monospace;margin-bottom:5px;}
+.fcq{font-size:13px;font-weight:500;color:var(--tx);line-height:1.5;flex:1;}
+.fch{font-size:10px;color:var(--dim);margin-top:auto;padding-top:6px;}
+.fctag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--p);margin-bottom:5px;}
+.fca{font-size:12px;color:#6dbad0;line-height:1.6;}
+.fca strong{color:var(--p);}
+
+/* PARETO */
+.plist{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.pitem{display:flex;gap:12px;align-items:flex-start;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rsm);padding:13px 15px;}
+.pnum{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--p);min-width:26px;line-height:1;}
+.ptxt h4{font-size:13.5px;font-weight:600;color:var(--tx);margin-bottom:2px;}
+.ptxt p{font-size:12px;color:var(--mu);}
+.trapg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;margin-top:8px;}
+.trap{background:rgba(229,92,112,.05);border:1px solid rgba(229,92,112,.17);border-radius:var(--rsm);padding:11px 13px;}
+.trap h5{font-size:12.5px;font-weight:600;color:var(--r);margin-bottom:2px;}
+.trap p{font-size:11.5px;color:var(--mu);}
+.fstep{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:10px;display:flex;gap:14px;}
+.fsn{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--p);line-height:1;min-width:30px;}
+.fsb h4{font-size:13.5px;font-weight:600;color:var(--tx);margin-bottom:3px;}
+.fsb p{font-size:12.5px;color:var(--mu);}
+
+@media(max-width:580px){header{padding:16px 14px 0;}.modp{padding:20px 14px;}.mnav{padding:0 14px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <span class="hbadge bp">NCS III · SP 2.2</span>
+    <span class="hbadge ba">Tutoria + Morfo + MedLab</span>
+    <h1>O Quê? <em>Repita</em>, Por Favor?</h1>
+  </div>
+  <div class="qanav" id="qanav">
+    <button class="qabtn active" data-qa="q1">QA 1 · Definições</button>
+    <button class="qabtn" data-qa="q2">QA 2 · Órgãos Audição</button>
+    <button class="qabtn" data-qa="q3">QA 3 · Órgãos Equilíbrio</button>
+    <button class="qabtn" data-qa="q4">QA 4 · Neurofisiologia</button>
+    <button class="qabtn" data-qa="q5">QA 5 · Tipos de Perda</button>
+    <button class="qabtn" data-qa="q6">QA 6 · Causas e Prevenção</button>
+    <button class="qabtn" data-qa="q7">QA 7 · Diagnóstico</button>
+    <button class="qabtn" data-qa="q8">QA 8 · Biopsicossocial</button>
+    <button class="qabtn" data-qa="quiz">📝 Questões</button>
+    <button class="qabtn" data-qa="flash">🃏 Flashcards</button>
+    <button class="qabtn" data-qa="pareto">🎯 Pareto</button>
+  </div>
+</header>
+
+<div class="mnav" id="mnav" style="display:none;">
+  <span style="padding:11px 17px;font-size:13px;color:var(--mu);">Navegue pelas abas acima ↑</span>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 1 — DEFINIÇÕES
+══════════════════════════════════ -->
+<div id="t-q1" class="qatp active">
+<div class="modp active">
+  <div class="stag">QA 1 — Fisiologia Sensorial</div>
+  <h2 class="stit">Defina Audição e Equilíbrio</h2>
+  <p class="ssub">Conceitos fundamentais, propriedades da sensação e modalidades sensoriais.</p>
+
+  <div class="card">
+    <div class="clbl">🔊 Audição</div><div class="ctit">O que é e como funciona</div>
+    <div class="cbod">
+      <p>A <strong>audição</strong> é a nossa percepção da energia das ondas sonoras — ondas de pressão com picos de ar comprimido alternados com vales. O <strong>som</strong> é a interpretação do cérebro da frequência, amplitude e duração das ondas sonoras que chegam às orelhas.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Frequência (Hz)</div><p>Número de picos por segundo → percebida como <strong>tom/pitch</strong> (grave ↔ agudo). A membrana vibra lenta para graves e rápida para agudos.</p></div>
+        <div class="mc"><div class="mct">Amplitude (dB)</div><p>Altura da onda → percebida como <strong>intensidade/loudness</strong>. Sons mais altos causam vibrações maiores e mais frequentes PA ao encéfalo.</p></div>
+      </div>
+      <div class="hbox"><strong>Audição é nosso sentido social mais importante.</strong> As taxas de suicídio são mais altas em pessoas surdas do que naquelas que perderam a visão — a audição nos conecta com outras pessoas e com o mundo.</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">⚖️ Equilíbrio</div><div class="ctit">Dois componentes integrados</div>
+    <div class="cbod">
+      <p>O <strong>equilíbrio</strong> é o sentido que ajuda a manter a postura e estar ciente da orientação no espaço. Tem dois componentes fundamentais:</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Componente Dinâmico</div><p>Fornece informações sobre nosso <strong>movimento no espaço</strong> — aceleração e desaceleração linear e rotacional.</p></div>
+        <div class="mc"><div class="mct">Componente Estático</div><p>Informa se a nossa cabeça está na <strong>posição vertical normal</strong> — posição da cabeça em relação à gravidade.</p></div>
+      </div>
+      <p style="margin-top:9px;">O equilíbrio depende de três sistemas integrados: <strong>aparelho vestibular</strong> (orelha interna), <strong>visão</strong> (percepção espacial) e <strong>proprioceptores</strong> (músculos, tendões, articulações).</p>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🧠 Sensação vs. Percepção</div><div class="ctit">Conceitos básicos do SNS</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Sensação</div><p>Capacidade de codificar aspectos de energia que nos circunda. É a detecção do estímulo.</p></div>
+        <div class="mc"><div class="mct">Percepção</div><p>Vincular os sentidos a outros aspectos da existência. É individualizada e depende de experiências prévias.</p></div>
+      </div>
+      <p style="margin-top:9px;font-size:13px;">Toda sensação fornece: <strong>Localização espacial</strong> (de onde vem o estímulo) | <strong>Intensidade</strong> (força do estímulo) | <strong>Duração</strong> (quanto tempo dura o estímulo).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">📋 Propriedades de um Estímulo</div><div class="ctit">Como o SNC codifica cada característica</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Propriedade</th><th>Como é codificada</th></tr>
+        <tr><td>Natureza/Modalidade</td><td>Indicada pelos neurônios ativados e onde as vias terminam no encéfalo. Cada receptor é mais sensível a uma modalidade específica.</td></tr>
+        <tr><td>Localização</td><td>Codificada pelos campos receptivos ativados. Regiões adjacentes do receptor → regiões adjacentes do córtex (exceto audição).</td></tr>
+        <tr><td>Intensidade</td><td><strong>Número de receptores ativados</strong> (código populacional) + <strong>frequência de PA</strong> (código de frequência). Amplitude do PA nunca muda.</td></tr>
+        <tr><td>Duração</td><td>Duração da série de PA no neurônio sensorial. Receptores <strong>tônicos</strong> (adaptação lenta) vs. <strong>fásicos</strong> (adaptação rápida).</td></tr>
+      </table>
+      <div class="hbox a"><strong>Atenção!</strong> O potencial de ação nunca muda a amplitude — é tudo ou nada. A intensidade do estímulo é codificada pela FREQUÊNCIA dos PA e pelo NÚMERO de receptores ativados, não pela amplitude do PA.</div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">🔬 Receptores Tônicos vs. Fásicos</div><div class="ctit">Adaptação sensorial</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Receptores Tônicos (adaptação lenta)</div><p>Disparam rapidamente no início, depois diminuem e <strong>mantêm seus disparos enquanto o estímulo estiver presente</strong>. Ex: proprioceptores, nociceptores crônicos.</p></div>
+        <div class="mc"><div class="mct">Receptores Fásicos (adaptação rápida)</div><p>Disparam ao receber o estímulo, mas <strong>param se a intensidade for constante</strong>. Permitem filtrar informações irrelevantes. Ex: receptores de pressão (corpúsculo de Paccini).</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 2 — ÓRGÃOS DA AUDIÇÃO
+══════════════════════════════════ -->
+<div id="t-q2" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 2 — Morfofuncional</div>
+  <h2 class="stit">Órgãos da Audição e suas Funções</h2>
+  <p class="ssub">Anatomia macroscópica e microscópica da orelha — externa, média e interna.</p>
+
+  <div class="card">
+    <div class="clbl">👂 Orelha Externa — Captação</div><div class="ctit">Coleta e canaliza as ondas sonoras</div>
+    <div class="cbod">
+      <div class="g3">
+        <div class="mc"><div class="mct">Pavilhão Auricular (Aurícula)</div><p>Cartilagem elástica + pele. Formada por margem (<strong>hélice</strong>) e porção inferior (<strong>lóbulo</strong>). <strong>Coleta as ondas sonoras</strong> e as direciona para o meato.</p></div>
+        <div class="mc"><div class="mct">Meato Acústico Externo</div><p>Tubo no osso temporal até o tímpano. Contém pelos + <strong>glândulas ceruminosas</strong> (secreta cerume — protege de poeira, insetos e água). <strong>Conduz o som</strong>.</p></div>
+        <div class="mc"><div class="mct">Membrana Timpânica (Tímpano)</div><p>Divisão fina e semitransparente entre orelha externa e média. Coberta por epiderme e revestida por epitélio cúbico simples. <strong>Vibra</strong> com as ondas sonoras.</p></div>
+      </div>
+      <div class="hbox"><strong>Clínica:</strong> Otite externa = inflamação do pavilhão auricular (ruborizado) — comum em adultos (natação, cotonete). Cotonetes empurram o cerume e podem perfurar o tímpano!</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">🦴 Orelha Média — Amplificação</div><div class="ctit">Transmite e amplifica as vibrações à janela oval</div>
+    <div class="cbod">
+      <p>Cavidade timpânica cheia de <strong>ar</strong> no osso temporal. Separada da orelha externa pelo tímpano e da interna por partição óssea com janela oval e redonda.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Ossículos — Sistema de Alavanca</div><p><strong>Martelo → Bigorna → Estribo</strong>. Menores ossos do corpo. Amplificam ~20x a vibração do tímpano (grande área → pequena janela oval). <strong>Área tímpano ~55mm² → janela oval ~3,2mm².</strong></p></div>
+        <div class="mc"><div class="mct">Músculos Protetores</div><p><strong>Tensor do tímpano</strong> (NC V) — limita movimento do tímpano. <strong>Estapédio</strong> (NC VII — menor músculo do corpo) — amortece grandes vibrações. <strong>ATENÇÃO:</strong> protegem de ruídos prolongados, mas NÃO de ruídos breves (ex: tiro).</p></div>
+      </div>
+      <div class="mc" style="margin-top:9px;"><div class="mct">Tuba Auditiva (Trompa de Eustáquio)</div><p>Conecta a cavidade timpânica à nasofaringe. Equilíbrio da pressão (abre durante deglutição e bocejo). Também é rota para patógenos → <strong>otite média</strong>.</p></div>
+      <div class="hbox a"><strong>Otite média:</strong> mais grave que a externa — líquido acumula na cavidade, pode romper o tímpano e calcificar ossículos, tornando-os mais rígidos. Em bebês &lt;6 meses, o meato é reto, favorecendo otites.</div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🐚 Orelha Interna — Cóclea (Audição)</div><div class="ctit">Transdução e codificação audioneural</div>
+    <div class="cbod">
+      <p>A <strong>cóclea</strong> (canal ósseo espiral) é o órgão da audição. Dividida em 3 compartimentos por membranas:</p>
+      <div class="g3">
+        <div class="mc"><div class="mct">Rampa do Vestíbulo</div><p>Preenchida por <strong>perilinfa</strong> (rica em Na⁺, semelhante ao LEC). Comunica-se com janela oval (estribo).</p></div>
+        <div class="mc"><div class="mct">Ducto Coclear (Escala Média)</div><p>Preenchido por <strong>endolinfa</strong> (rica em K⁺ ~150 mEq/L, semelhante ao LIC). Contém o órgão de Corti.</p></div>
+        <div class="mc"><div class="mct">Rampa do Tímpano</div><p>Preenchida por <strong>perilinfa</strong>. Comunica-se com janela redonda (dissipação de energia).</p></div>
+      </div>
+      <div class="hbox v"><strong>Órgão de Corti:</strong> sobre a membrana basilar, parcialmente coberto pela membrana tectória. Contém células ciliadas INTERNAS (1 fileira — transdução) e EXTERNAS (3 fileiras — amplificação). São os receptores auditivos!</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">📐 Membrana Basilar — Tonotopia</div><div class="ctit">Como diferenciamos graves de agudos</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Base (próxima à janela oval)</div><p>Membrana <strong>mais estreita e rígida</strong>. Detecta sons de <strong>ALTA frequência (agudos)</strong>. Vibração máxima nessa região.</p></div>
+        <div class="mc"><div class="mct">Ápice (helicotrema)</div><p>Membrana <strong>mais larga e flexível</strong>. Detecta sons de <strong>BAIXA frequência (graves)</strong>. Ondas percorrem toda a membrana.</p></div>
+      </div>
+      <div class="hbox"><strong>Tonotopia:</strong> a codificação espacial da membrana basilar é preservada no córtex auditivo — cada região do córtex processa uma faixa específica de frequência (organização tonotópica). Analogia: teclado de piano.</div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">🔬 Microscopia — Órgão de Corti</div><div class="ctit">Estruturas histológicas da audição</div>
+    <div class="cbod">
+      <div class="chips">
+        <span class="chip">Membrana Basilar (suporte)</span>
+        <span class="chip">Membrana Tectória (rígida — ponto de dobradiça)</span>
+        <span class="chip">Células Ciliadas Internas (1 fileira)</span>
+        <span class="chip">Células Ciliadas Externas (3 fileiras)</span>
+        <span class="chip">Células de Sustentação</span>
+        <span class="chip">Estria Vascular (produz endolinfa)</span>
+        <span class="chip">Gânglio Espiral (neurônio primário)</span>
+        <span class="chip">Membrana Vestibular (de Reissner)</span>
+      </div>
+      <p style="margin-top:9px;font-size:13px;color:var(--mu);">Os <strong style="color:var(--tx)">estereocílios</strong> das células ciliadas são microvilosidades longas dispostas em fileiras de altura graduada, interconectadas por <strong style="color:var(--tx)">filamentos de ligação (tip links)</strong> que atuam como molas conectadas a comportas de canais iônicos.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 3 — ÓRGÃOS DO EQUILÍBRIO
+══════════════════════════════════ -->
+<div id="t-q3" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 3 — Morfofuncional</div>
+  <h2 class="stit">Órgãos do Equilíbrio e suas Funções</h2>
+  <p class="ssub">Aparelho vestibular — canais semicirculares, utrículo, sáculo e suas estruturas.</p>
+
+  <div class="card">
+    <div class="clbl">⚖️ Visão Geral — Aparelho Vestibular</div><div class="ctit">O "órgão gravitoceptor" do equilíbrio</div>
+    <div class="cbod">
+      <p>O <strong>aparelho vestibular</strong> (labirinto vestibular) é o órgão do equilíbrio. Localizado no ouvido interno, é composto por:</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">3 Canais Semicirculares</div><p>Anterior (vertical), Posterior (vertical) e Lateral/Horizontal. Detectam <strong>aceleração angular (rotacional)</strong>.</p></div>
+        <div class="mc"><div class="mct">2 Órgãos Otolíticos</div><p><strong>Utrículo</strong> e <strong>Sáculo</strong>. Detectam <strong>aceleração linear</strong> e posição da cabeça em relação à gravidade.</p></div>
+      </div>
+      <div class="hbox"><strong>Ambos</strong> são preenchidos com <strong>endolinfa</strong> (alta [K⁺], baixa [Na⁺]) — mesmo líquido da cóclea. O gânglio vestibular de Scarpa contém os neurônios primários do sistema vestibular.</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">🌀 Canais Semicirculares — Aceleração Angular</div><div class="ctit">Crista ampular, cúpula e rotação da cabeça</div>
+    <div class="cbod">
+      <p>Cada canal tem, em uma extremidade dilatada (<strong>ampola</strong>), uma estrutura sensorial chamada <strong>crista</strong>:</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Composição da Crista</div><p>Células ciliadas + células de sustentação + <strong>cúpula</strong> (massa gelatinosa que cobre as células ciliadas). Os estereocílios ficam embebidos na cúpula.</p></div>
+        <div class="mc"><div class="mct">Mecanismo de Ativação</div><p>Rotação da cabeça → canal move com o crânio, mas <strong>endolinfa fica para trás (inércia)</strong> → empurra a cúpula → deflecte estereocílios → PA no nervo vestibular.</p></div>
+      </div>
+      <div class="g3" style="margin-top:10px;">
+        <div class="mc"><div class="mct">Canal Horizontal (lateral)</div><p>Detecta rotação à esquerda/direita ("não" com a cabeça, pirueta).</p></div>
+        <div class="mc"><div class="mct">Canal Posterior</div><p>Detecta rotação lateral, inclinar a cabeça para o ombro.</p></div>
+        <div class="mc"><div class="mct">Canal Anterior</div><p>Detecta rotação frente/trás ("sim" com a cabeça, cambalhota).</p></div>
+      </div>
+      <div class="hbox a"><strong>Tontura pós-giro:</strong> após parar de girar, a endolinfa continua girando por inércia → percepção de que o corpo ainda está girando → contração muscular inadequada → desequilíbrio.</div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">📍 Órgãos Otolíticos — Aceleração Linear</div><div class="ctit">Utrículo, sáculo, mácula e otólitos</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Utrículo</div><p>Mácula <strong>horizontal</strong>. Detecta aceleração linear <strong>horizontal</strong> (andar, frear) e <strong>inclinação lateral da cabeça</strong>.</p></div>
+        <div class="mc"><div class="mct">Sáculo</div><p>Mácula <strong>vertical</strong>. Detecta aceleração linear <strong>vertical</strong> (subir/descer elevador, pular).</p></div>
+      </div>
+      <p style="margin-top:9px;"><strong>Composição da Mácula:</strong></p>
+      <div class="chips">
+        <span class="chip">Células ciliadas (receptores)</span>
+        <span class="chip">Células de sustentação</span>
+        <span class="chip">Membrana otolítica (gelatinosa)</span>
+        <span class="chip">Otólitos/Estatocônios (cristais de CaCO₃)</span>
+        <span class="chip">Cinocílio (ponto de referência direcional)</span>
+        <span class="chip">Estereocílios</span>
+      </div>
+      <p style="margin-top:9px;font-size:13px;color:var(--mu);">Quando a gravidade ou aceleração faz os otólitos deslizarem, a membrana otolítica desliza com eles, curvando os cílios. O <strong style="color:var(--tx)">cinocílio</strong> estabelece um ponto de referência para a direção da curvatura → despolarização ou hiperpolarização.</p>
+      <div class="hbox v"><strong>BPPV:</strong> Otólitos se desprendem da mácula do utrículo e caem no canal semicircular posterior → ao mudar de posição, estimulam erroneamente a crista → vertigem posicional paroxística benigna. Manobra de Epley repositiona os cristais.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">🔬 Microscopia — Crista vs. Mácula</div><div class="ctit">Comparação histológica</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Aspecto</th><th>Crista Ampular (canais)</th><th>Mácula (utrículo/sáculo)</th></tr>
+        <tr><td>Localização</td><td>Ampola dos canais semicirculares</td><td>Utrículo (horiz.) e sáculo (vert.)</td></tr>
+        <tr><td>Estrutura gelatinosa</td><td><strong>Cúpula</strong></td><td><strong>Membrana otolítica</strong></td></tr>
+        <tr><td>Cristais de cálcio</td><td class="err">Não</td><td class="ok">Sim — otólitos/estatocônios</td></tr>
+        <tr><td>Tipo de aceleração</td><td><strong>Angular (rotacional)</strong></td><td><strong>Linear e gravitacional</strong></td></tr>
+        <tr><td>Cílio de referência</td><td>Cinocílio</td><td>Cinocílio</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 4 — NEUROFISIOLOGIA
+══════════════════════════════════ -->
+<div id="t-q4" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 4 — Neurofisiologia</div>
+  <h2 class="stit">Mecanismos Neurofisiológicos da Audição e do Equilíbrio</h2>
+  <p class="ssub">Transdução, vias aferentes centrais e reflexos.</p>
+
+  <div class="card">
+    <div class="clbl">⚡ Fisiologia da Audição — 8 Passos</div><div class="ctit">Da onda sonora ao potencial de ação</div>
+    <div class="cbod">
+      <div class="steps">
+        <div class="step"><div class="sn">1</div><div class="sb">Pavilhão auricular direciona as ondas sonoras para o <strong>meato acústico externo</strong>.</div></div>
+        <div class="step"><div class="sn">2</div><div class="sb">Ondas atingem a <strong>membrana timpânica</strong>, fazendo-a vibrar (lento para graves, rápido para agudos). A membrana amplifica — NÃO transuz.</div></div>
+        <div class="step"><div class="sn">3</div><div class="sb">Vibração transmitida: <strong>Martelo → Bigorna → Estribo</strong> (alavanca — amplifica ~20x). O estribo vibra na <strong>janela oval</strong>.</div></div>
+        <div class="step"><div class="sn">4</div><div class="sb">Estribo na janela oval gera ondas de pressão na <strong>perilinfa da rampa do vestíbulo</strong>.</div></div>
+        <div class="step"><div class="sn">5</div><div class="sb">Ondas propagam-se, empurram a <strong>membrana vestibular</strong> → criam ondas de pressão na <strong>endolinfa do ducto coclear</strong>.</div></div>
+        <div class="step"><div class="sn">6</div><div class="sb">Endolinfa faz a <strong>membrana basilar vibrar</strong> → move as células ciliadas do órgão de Corti contra a membrana tectória → deflexão dos <strong>estereocílios</strong>.</div></div>
+        <div class="step"><div class="sn">7</div><div class="sb">Filamentos de ligação abrem canais de <strong>K⁺ e Ca²⁺</strong> → K⁺ entra da endolinfa → <strong>despolarização</strong> → abertura de canais de Ca²⁺ dependentes de voltagem → liberação de <strong>glutamato</strong> → PA no neurônio auditivo.</div></div>
+        <div class="step"><div class="sn">8</div><div class="sb">Energia dissipa-se: perilinfa retorna pela <strong>rampa do tímpano → janela redonda</strong> (projeta-se para fora na orelha média).</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">🔁 Transdução Celular — Detalhe</div><div class="ctit">O que acontece na célula ciliada</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Excitação (curvatura +direção)</div><p>Filamentos de ligação esticados → <strong>canais de cátions abrem</strong> → K⁺ e Ca²⁺ entram → despolarização → ↑ liberação de glutamato → ↑ PA no neurônio auditivo.</p></div>
+        <div class="mc"><div class="mct">Inibição (curvatura -direção)</div><p>Tensão das molas relaxa → <strong>canais iônicos fecham</strong> → hiperpolarização → ↓ liberação de glutamato → ↓ PA.</p></div>
+      </div>
+      <div class="schem">Em repouso: ~10% dos canais abertos → sinal tônico basal
+Excitação: + canais abrem → K⁺ entra → despolariza → Ca²⁺ entra → GLUTAMATO ↑
+Inibição: canais fecham → hiperpolariza → GLUTAMATO ↓</div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🗺️ Via Auditiva Central</div><div class="ctit">Do gânglio espiral ao córtex auditivo primário</div>
+    <div class="cbod">
+      <div class="schem">Células Ciliadas → Gânglio Espiral (neurônio primário)
+  ↓ Nervo Coclear (NC VIII)
+Núcleos Cocleares — Bulbo (1ª estação central)
+  ↓ projeções bilaterais (homo e contralateral)
+Oliva Superior (Bulbo/Ponte) — localização do som
+  ↓ Lemnisco Lateral
+Colículo Inferior (Mesencéfalo) — convergência de TODAS as vias
+  ↓
+Corpo Geniculado Medial — NGM (Tálamo)
+  ↓ Radiações acústicas
+Córtex Auditivo Primário — Área 41 de Brodmann
+  Giro Temporal Transverso Anterior (Giro de Heschl)
+  ↓
+Área de Wernicke — compreensão da linguagem (lobo temporal)</div>
+      <div class="hbox v"><strong>Organização tonotópica:</strong> cada parte do giro temporal interpreta uma faixa de frequência. Sons agudos → base da cóclea → região específica do córtex. A bilateralidade da via auditiva explica por que lesões corticais unilaterais raramente causam surdez total.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">⚖️ Fisiologia do Equilíbrio</div><div class="ctit">Canais semicirculares e órgãos otolíticos</div>
+    <div class="cbod">
+      <p><strong>Canais semicirculares:</strong> rotação da cabeça → crânio e paredes membranosas movem-se, mas endolinfa fica para trás (inércia) → inclina a cúpula → deflecte cílios → PA no nervo vestibular.</p>
+      <p><strong>Órgãos otolíticos:</strong> gravidade/aceleração → otólitos deslizam → membrana otolítica deforma → cílios curvam → PA no nervo vestibular.</p>
+      <div class="hbox g"><strong>Cinetose (enjoo de movimento):</strong> conflito entre os sentidos. Ex: na cabine de um navio, o aparelho vestibular detecta movimento das ondas, mas os olhos não veem nenhum movimento → conflito → enjoo.</div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">🗺️ Via Vestibular — Consciente e Inconsciente</div><div class="ctit">Projeções dos núcleos vestibulares</div>
+    <div class="cbod">
+      <div class="schem">Células ciliadas (cristas e máculas) → Gânglio Vestibular de Scarpa
+  ↓ Nervo Vestibular (NC VIII)
+Núcleos Vestibulares (Bulbo/Ponte) — integração
+  ↓ 4 projeções principais:
+  1. Cerebelo (pedúnculo cerebelar inferior) → ajuste fino do equilíbrio (INCONSCIENTE)
+  2. Medula espinal (trato vestibuloespinal) → reflexo vestibuloespinal — tônus muscular postural
+  3. Núcleos oculomotores (III, IV, VI) → reflexo vestíbulo-ocular (RVO) — estabilização do olhar
+  4. Tálamo → Área vestibular (lobo parietal) → CONSCIÊNCIA do equilíbrio</div>
+      <div class="g2" style="margin-top:10px;">
+        <div class="mc"><div class="mct">Reflexo Vestíbulo-Ocular (RVO)</div><p>Permite <strong>estabilizar o olhar</strong> mesmo com a cabeça em movimento. Ex: correr olhando para um ponto fixo. Lesão → nistagmo patológico.</p></div>
+        <div class="mc"><div class="mct">Reflexo Vestibuloespinal</div><p>Compensa movimentos da cabeça por meio da <strong>contração dos músculos posturais</strong> para evitar a queda.</p></div>
+      </div>
+      <div class="hbox"><strong>Via inconsciente:</strong> o aparelho vestibular funciona continuamente, inclusive durante o sono. A via consciente (área vestibular parietal) só é ativada quando há assimetria labiríntica → vertigem.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 5 — TIPOS DE PERDA AUDITIVA
+══════════════════════════════════ -->
+<div id="t-q5" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 5 — Clínica</div>
+  <h2 class="stit">Tipos de Perda Auditiva: Condutiva, Neurossensorial e Central</h2>
+  <p class="ssub">Diferenciação fisiopatológica, achados nos testes de Weber e Rinne e audiograma.</p>
+
+  <div class="card">
+    <div class="clbl">🔵 Perda Auditiva Condutiva</div><div class="ctit">Problema na transmissão do som</div>
+    <div class="cbod">
+      <p>A transmissão das ondas sonoras da orelha externa até a janela oval está <strong>comprometida</strong>. Afeta todas as frequências igualmente.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Causas Orelha Externa</div><p>Cerume impactado, obstrução do meato, malformações congênitas, estenose do canal.</p></div>
+        <div class="mc"><div class="mct">Causas Orelha Média</div><p>Otite média (líquido), membrana timpânica perfurada, ossículos danificados ou fixos (otosclerose).</p></div>
+      </div>
+      <div class="g2" style="margin-top:9px;">
+        <div class="mc"><div class="mct" style="color:var(--g);">Rinne ✘ Negativo</div><p>Óssea > Aérea — a via óssea contorna o problema da cadeia ossicular. Condutiva identificada com <strong>gap aéreo-ósseo ≥ 20 dB</strong>.</p></div>
+        <div class="mc"><div class="mct" style="color:var(--t);">Weber → Lado Afetado</div><p>O ouvido doente não recebe ruído de fundo pela via aérea comprometida → "escuta melhor" o diapasão ósseo.</p></div>
+      </div>
+      <div class="hbox g"><strong>Tratamento:</strong> aparelhos auditivos (amplificam via óssea), técnicas microcirúrgicas (reconstrução ossicular), drenagem de efusão.</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">🟠 Perda Auditiva Neurossensorial (Sensitiva)</div><div class="ctit">Problema na cóclea ou no nervo VIII</div>
+    <div class="cbod">
+      <p>A transmissão de impulsos nervosos está comprometida entre a cóclea e o córtex auditivo. Pode envolver:</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Cóclea (Sensorial)</div><p>Destruição das células ciliadas (não se regeneram em mamíferos). Ex: ruído excessivo, ototóxicos, presbiacusia.</p></div>
+        <div class="mc"><div class="mct">Nervo VIII (Neural)</div><p>Lesão do nervo vestibulococlear. Ex: neurinoma do acústico, infecções virais, trauma.</p></div>
+      </div>
+      <div class="g2" style="margin-top:9px;">
+        <div class="mc"><div class="mct" style="color:var(--g);">Rinne ✔ Positivo</div><p>Aérea > Óssea — AMBAS as vias estão comprometidas igualmente. Sem gap aéreo-ósseo.</p></div>
+        <div class="mc"><div class="mct" style="color:var(--t);">Weber → Lado NÃO Afetado</div><p>A cóclea afetada não consegue processar o sinal → ouvido bom "ganha" a percepção.</p></div>
+      </div>
+      <div class="hbox a"><strong>Tratamento:</strong> implante coclear (estimulação elétrica das fibras do NC VIII). Pesquisas em andamento: transplante de células-tronco neurais e terapia gênica para regeneração das células ciliadas.</div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🟣 Perda Auditiva Central</div><div class="ctit">Lesão nas vias neurais centrais</div>
+    <div class="cbod">
+      <p>Resulta de dano nas vias neurais <strong>entre a orelha e o córtex cerebral</strong> ou do próprio córtex. Forma relativamente incomum.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Características</div><p>Limiares auditivos podem ser normais ou pouco alterados no audiograma, mas há <strong>prejuízo na interpretação do som</strong> (processamento auditivo central).</p></div>
+        <div class="mc"><div class="mct">Causas</div><p>AVE, tumores no tronco encefálico, lesões do corpo geniculado medial (tálamo) ou do córtex auditivo no lobo temporal.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">📊 Quadro Comparativo Completo</div><div class="ctit">Diferenciação entre os tipos</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Aspecto</th><th>Condutiva</th><th>Neurossensorial</th><th>Central</th></tr>
+        <tr><td>Localização</td><td>Orelha ext./média</td><td>Cóclea ou NC VIII</td><td>Vias centrais/córtex</td></tr>
+        <tr><td>Via aérea</td><td class="err">Comprometida</td><td class="err">Comprometida</td><td>Normal</td></tr>
+        <tr><td>Via óssea</td><td class="ok">Preservada</td><td class="err">Comprometida</td><td>Normal</td></tr>
+        <tr><td>Gap aéreo-ósseo</td><td class="ok">Presente ≥20 dB</td><td class="err">Ausente</td><td>Ausente</td></tr>
+        <tr><td>Rinne</td><td class="err">Negativo</td><td class="ok">Positivo</td><td>Positivo</td></tr>
+        <tr><td>Weber</td><td>Lado <span class="err">afetado</span></td><td>Lado <span class="ok">não afetado</span></td><td>Indiferente</td></tr>
+        <tr><td>Frequências afetadas</td><td>Todas igualmente</td><td>Geralmente altas freq.</td><td>Variável</td></tr>
+        <tr><td>Exemplos</td><td>Otite, otosclerose, cerume</td><td>Presbiacusia, ruído, ototóxico</td><td>AVE, tumor central</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 6 — CAUSAS E PREVENÇÃO
+══════════════════════════════════ -->
+<div id="t-q6" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 6 — Saúde Pública</div>
+  <h2 class="stit">Causas Prevalentes de Perda Auditiva e Prevenção</h2>
+  <p class="ssub">Etiologia, fisiopatologia e medidas preventivas de acordo com as causas mais comuns.</p>
+
+  <div class="card">
+    <div class="clbl">🔊 Exposição a Ruído Elevado</div><div class="ctit">PAINPSE — Perda Auditiva Induzida por Ruído</div>
+    <div class="cbod">
+      <p>Sons de alta intensidade causam <strong>destruição das células ciliadas externas</strong> (perda neurossensorial irreversível). As células ciliadas dos mamíferos NÃO se regeneram.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Mecanismo</div><p>Ondas de alta intensidade → vibração excessiva da membrana basilar → dano mecânico às células ciliadas → apoptose. Afeta principalmente <strong>altas frequências (4000 Hz)</strong>.</p></div>
+        <div class="mc"><div class="mct">Proteção dos Músculos</div><p>Músculo estapédio contrai-se em sons altos — protege de ruídos PROLONGADOS. NÃO protege de ruídos BREVES e repentinos (ex: explosão, tiro).</p></div>
+      </div>
+      <div class="hbox r"><strong>Prevenção:</strong> uso de EPI (protetor auricular) em ambientes ruidosos; evitar música alta com fones; monitoramento audiológico ocupacional; limitar exposição em ambiente de trabalho.</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">👴 Presbiacusia</div><div class="ctit">Perda auditiva relacionada ao envelhecimento</div>
+    <div class="cbod">
+      <p>Comprometimento auditivo progressivo relacionado à idade. Começa após os 20 anos com perda de altas frequências (18.000–20.000 Hz), estendendo-se gradualmente para 4.000–8.000 Hz.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Características</div><p>Afeta homens em maior grau. Perda bilateral, simétrica, nas altas frequências. A capacidade de ouvir a <strong>fala é particularmente afetada</strong>.</p></div>
+        <div class="mc"><div class="mct">Fatores Associados</div><p>Diabetes, hipertensão, dislipidemias, tabagismo, infecções virais, exposição cumulativa a ruídos ao longo da vida.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🦠 Infecções do Ouvido</div><div class="ctit">Otites e suas consequências</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Otite Média</div><p>Inflamação (geralmente bacteriana/viral) com acúmulo de líquido → pressão nos ossículos → perda condutiva temporária. Se recorrente, pode → crescimento epitelial excessivo, perfuração timpânica, calcificação dos ossículos = perda permanente.</p></div>
+        <div class="mc"><div class="mct">Otite Externa</div><p>Geralmente não causa perda auditiva permanente. Causas comuns: natação, uso indevido de cotonetes. Pavilhão auricular ruborizado e doloroso.</p></div>
+      </div>
+      <div class="hbox v"><strong>Prevenção:</strong> tratamento precoce sem automedicação, não nadar em água suja, evitar cotonetes, não compartilhar fones de ouvido.</div>
+    </div>
+  </div>
+
+  <div class="card r">
+    <div class="clbl">💊 Medicamentos Ototóxicos</div><div class="ctit">Drogas que lesam o ouvido interno</div>
+    <div class="cbod">
+      <p>Uso prolongado de medicamentos que causam dano às células ciliadas ou ao nervo auditivo. A perda é geralmente bilateral, nas altas frequências, e pode ser irreversível.</p>
+      <div class="chips">
+        <span class="chip">Aminoglicosídeos (gentamicina, neomicina)</span>
+        <span class="chip">Cisplatina e outros quimioterápicos</span>
+        <span class="chip">Furosemida (uso prolongado)</span>
+        <span class="chip">AAS em doses altas</span>
+        <span class="chip">Quinina</span>
+      </div>
+      <div class="hbox r"><strong>Prevenção:</strong> monitoramento audiológico durante o tratamento; doses mínimas necessárias; hidratação adequada; evitar combinação de ototóxicos.</div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">⚡ Trauma Acústico Agudo</div><div class="ctit">Lesão por exposição súbita a sons muito intensos</div>
+    <div class="cbod">
+      <p>Exposição súbita a sons de altíssima intensidade (ex: explosão, disparo de arma). O músculo estapédio responde lentamente — <strong>não consegue proteger a cóclea a tempo</strong>.</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Características</div><p>Perda neurossensorial súbita, principalmente em 4000 Hz. Pode acompanhar zumbido (tinnitus) intenso. Pode ser parcialmente reversível se tratado precocemente.</p></div>
+        <div class="mc"><div class="mct">Prevenção</div><p>EPI em ambientes com risco de explosões; tampões auriculares em situações previsíveis; distanciamento de fontes de alta intensidade.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">📋 Medidas Preventivas Gerais</div><div class="ctit">O que o MS recomenda</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Fazer</div><p>✅ Usar EPI em locais barulhentos<br>✅ Usar tampão de ouvido<br>✅ Limpar apenas a parte externa com pano macio<br>✅ Buscar médico ao perceber alterações<br>✅ Tratar infecções com prescrição médica</p></div>
+        <div class="mc"><div class="mct">Evitar</div><p>❌ Objetos pontiagudos (canetas, grampos)<br>❌ Cotonetes dentro do ouvido<br>❌ Velas Hopi otológicas<br>❌ Nadar em água suja<br>❌ Música alta com fones<br>❌ Automedicação</p></div>
+      </div>
+      <div class="hbox"><strong>Cerume:</strong> a parte interna da orelha é <em>autolimpante</em>. O cerume protege de poeira, insetos e água. Limpe apenas a parte EXTERNA com pano macio. O cerume impactado deve ser removido por profissional (irrigação ou instrumento).</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 7 — DIAGNÓSTICO
+══════════════════════════════════ -->
+<div id="t-q7" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 7 — MedLab + Clínica</div>
+  <h2 class="stit">Métodos Diagnósticos para Audição e Equilíbrio</h2>
+  <p class="ssub">Testes clínicos, exames complementares e interpretação.</p>
+
+  <div class="card">
+    <div class="clbl">🩺 Avaliação Clínica Inicial</div><div class="ctit">História clínica e exame físico</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">História Clínica</div><p>Há quanto tempo a perda foi percebida; início (gradual ou súbito); uni ou bilateral; distorção do som; dificuldade na discriminação da fala; eventos agudos (trauma, exposição a ruído); sintomas associados (zumbido, vertigem).</p></div>
+        <div class="mc"><div class="mct">Exame Físico</div><p>Inspeção da orelha externa (obstrução, infecção, malformações); membrana timpânica (perfuração, secreção, otite, colesteatoma); exame neurológico (NC V, VII — tensor do tímpano e estapédio; ângulo pontocerebelar).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">🎵 Testes de Diapasão</div><div class="ctit">Weber e Rinne — interpretação completa</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Teste de Weber (512 ou 1024 Hz)</div><p>Diapasão na linha média (fronte/vértice/incisivos). <br>→ <strong>Indiferente</strong>: normal ou perda simétrica bilateral.<br>→ <strong>Lado afetado</strong>: perda CONDUTIVA (sem ruído de fundo).<br>→ <strong>Lado não afetado</strong>: perda NEUROSSENSORIAL.</p></div>
+        <div class="mc"><div class="mct">Teste de Rinne</div><p>Mastoide (via óssea) → frente do meato (via aérea).<br>→ <strong>Positivo (✔)</strong>: aérea > óssea = normal ou neurossensorial.<br>→ <strong>Negativo (✘)</strong>: óssea > aérea = CONDUTIVA (gap ≥ 20 dB).</p></div>
+      </div>
+      <div class="schem">Condutiva: Weber → afetado | Rinne → negativo | Gap aéreo-ósseo ≥ 20 dB
+Neurossensorial: Weber → não afetado | Rinne → positivo | Sem gap
+Mnemônico: "Condutiva = Caindo no buraco (lado doente)"</div>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">📈 Audiometria Tonal (ATL)</div><div class="ctit">Quantificação do limiar auditivo</div>
+    <div class="cbod">
+      <p>Proporciona tons puros em frequências específicas e intensidades diferentes para determinar o <strong>limiar de audição</strong> do paciente. Resultados em <strong>audiograma</strong> (frequência em Hz × intensidade em dB).</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Via Aérea</div><p>Fone de ouvido — testa toda a cadeia auditiva (ext. + média + interna + nervo).</p></div>
+        <div class="mc"><div class="mct">Via Óssea</div><p>Vibrador no mastoide — testa diretamente a cóclea, bypassa orelha ext. e média.</p></div>
+      </div>
+      <div class="g3" style="margin-top:9px;">
+        <div class="mc"><div class="mct">Normal: 0–25 dB</div><p>Limiares dentro da faixa normal em todas as frequências.</p></div>
+        <div class="mc"><div class="mct">Leve: 26–40 dB | Moderada: 41–55 dB</div><p>Dificuldade em situações com ruído de fundo ou voz baixa.</p></div>
+        <div class="mc"><div class="mct">Severa: 56–70 dB | Profunda: >71 dB</div><p>Necessita amplificação significativa ou implante coclear.</p></div>
+      </div>
+      <div class="hbox v"><strong>ATL ≠ processamento auditivo:</strong> a audiometria tonal afere se o indivíduo ESCUTA ou não. Não avalia se o paciente ENTENDE o que está escutando. Para isso: avaliação do processamento auditivo central.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">🔬 Outros Exames Audiométricos</div><div class="ctit">Complementação diagnóstica</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Exame</th><th>O que avalia</th><th>Indicação</th></tr>
+        <tr><td>Logoaudiometria (SRT)</td><td>Limiar de recepção de fala — intensidade em que 50% das palavras são reconhecidas</td><td>Correlação com ATL; avaliação funcional da compreensão da fala</td></tr>
+        <tr><td>Timpanometria</td><td>Impedância da orelha média — conformidade da membrana timpânica sob variação de pressão</td><td>Efusão em orelha média, otite secretora (crianças)</td></tr>
+        <tr><td>Reflexo Acústico</td><td>Contração do músculo estapédio em resposta a sons intensos</td><td>Localização de lesões na via auditiva</td></tr>
+        <tr><td>PEATE</td><td>Potenciais evocados auditivos do tronco encefálico — atividade neuroelétrica do nervo ao córtex</td><td>Tumor do NC VIII, lesões do tronco, neuropatia auditiva, coma</td></tr>
+        <tr><td>Proc. Auditivo Central</td><td>Habilidades auditivas: localização, discriminação, figura-fundo, aspectos binaurais</td><td>Dificuldade de compreensão sem perda auditiva periférica</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">⚖️ Testes do Equilíbrio</div><div class="ctit">Avaliação clínica estática e dinâmica</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Equilíbrio Estático</div><p><strong>Romberg:</strong> posição ortostática, olhos fechados, 1 minuto. Alterado se cair.<br><strong>Uemura:</strong> apoio monopodal com olhos fechados (altíssima sensibilidade).<br><strong>Braços estendidos:</strong> desvio &gt;2–3 cm = alterado.</p></div>
+        <div class="mc"><div class="mct">Equilíbrio Dinâmico (Marcha)</div><p><strong>Babinski-Weil:</strong> caminhar para frente e trás, olhos fechados (1,5m). Lesão unilateral → marcha em estrela.<br><strong>Fukuda:</strong> 60 passos, olhos fechados. Alterado: deslocamento &gt;1m ou rotação &gt;30°.<br><strong>Unterberger:</strong> variante do Fukuda (90 passos).</p></div>
+      </div>
+      <div class="mc" style="margin-top:9px;"><div class="mct">Vectoeletronistagmografia (VENG)</div><p>Avaliação da função vestibular indireta via movimentos oculares involuntários (nistagmos). Eletrodos próximos aos olhos registram o que ocorre no labirinto. Padrão ouro para disfunção vestibular.</p></div>
+      <div class="hbox g"><strong>Dix-Hallpike:</strong> teste diagnóstico específico para BPPV. Provoca vertigem e nistagmo ao deitar o paciente rapidamente com a cabeça rodada — identifica qual canal semicircular está afetado.</div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">📋 Habilidades Auditivas Centrais</div><div class="ctit">Avaliação do processamento auditivo</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Habilidade</th><th>Definição</th></tr>
+        <tr><td>Localização/lateralização</td><td>Identificar a fonte sonora e sua procedência no espaço</td></tr>
+        <tr><td>Discriminação auditiva</td><td>Distinguir um som de outro</td></tr>
+        <tr><td>Reconhecimento de padrão</td><td>Determinar semelhanças e diferenças entre padrões acústicos</td></tr>
+        <tr><td>Aspectos temporais</td><td>Processar estímulos acústicos em função do tempo</td></tr>
+        <tr><td>Figura-fundo</td><td>Reconhecer a fala quando há sinais competitivos (ruído de fundo)</td></tr>
+        <tr><td>Fechamento auditivo</td><td>Reconhecer fala quando parte da informação está faltando</td></tr>
+        <tr><td>Aspectos binaurais</td><td>Processar estímulos simultâneos nas duas orelhas</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QA 8 — BIOPSICOSSOCIAL
+══════════════════════════════════ -->
+<div id="t-q8" class="qatp">
+<div class="modp active">
+  <div class="stag">QA 8 — Saúde Integral</div>
+  <h2 class="stit">Impacto da Perda Auditiva no Bem-Estar Biopsicossocial</h2>
+  <p class="ssub">Consequências na comunicação, família, autoestima, trabalho e legislação.</p>
+
+  <div class="card r">
+    <div class="clbl">❗ Por que a audição é central para o bem-estar?</div>
+    <div class="cbod">
+      <p><strong>A audição provavelmente é nosso sentido social mais importante.</strong> As taxas de suicídio são mais altas em pessoas surdas do que naquelas que perderam a visão. Mais do que qualquer outro sentido, a audição nos conecta com outras pessoas e com o mundo.</p>
+      <div class="hbox r"><strong>Epidemiologia:</strong> mais de 1,5 bilhão de pessoas têm algum grau de perda auditiva globalmente; 430 milhões com perda moderada a grave. No Brasil: ~10 milhões com alguma deficiência auditiva e 2,7 milhões com surdez profunda.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">💬 1. Comunicação</div><div class="ctit">Impacto nas relações interpessoais</div>
+    <div class="cbod">
+      <p>O processo de comunicação é afetado, causando comportamentos negativos em cascata:</p>
+      <div class="g2">
+        <div class="mc"><div class="mct">Consequências Diretas</div><p>Necessidade de pedir repetições constantemente; dificuldade de leitura labial; aumento do volume de TV/rádio; constrangimento em grupos; fadiga auditiva por atenção excessiva.</p></div>
+        <div class="mc"><div class="mct">Consequências Indiretas</div><p>Estresse, ansiedade, insônia, irritação, autoimagem negativa, intolerância a ruído de fundo, zumbido perturbador. Quando a perda é gradual, a própria limitação pode não ser percebida.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card a">
+    <div class="clbl">👨‍👩‍👧 2. Relações Familiares</div><div class="ctit">Impacto no núcleo familiar</div>
+    <div class="cbod">
+      <p>Os cônjuges e familiares sofrem consequências diretas: esforço e concentração extra, estresse, restrição da vida social, tristeza decorrente do isolamento do ente querido. Mal-entendidos podem gerar crises sérias no casamento.</p>
+      <p style="margin-top:7px;">Familiares frequentemente tornam-se <strong>"intérpretes"</strong> — intermediando a comunicação. Entretanto, a participação familiar é crucial no tratamento e integração social da pessoa com deficiência auditiva.</p>
+    </div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">😔 3. Autoestima e Saúde Mental</div><div class="ctit">Isolamento e quadros depressivos</div>
+    <div class="cbod">
+      <div class="g2">
+        <div class="mc"><div class="mct">Perda de Autoestima</div><p>Insegurança, frustrações, quadros depressivos e de menos-valia — frequentemente camuflados por comportamentos como uso de álcool, na tentativa de atenuar o cotidiano.</p></div>
+        <div class="mc"><div class="mct">Isolamento Social</div><p>O constrangimento diante da deficiência contribui para a privação social. O indivíduo busca o isolamento por medo de ser estigmatizado de "surdo e incapaz". Fatores sociais, clínicos e psicológicos se potencializam.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card g">
+    <div class="clbl">💼 4. Ambiente de Trabalho</div><div class="ctit">Desafios profissionais e sociais</div>
+    <div class="cbod">
+      <p>Dificuldade de obter e manter emprego. O trabalhador faz esforço de "parecer o mais normal possível", causando fadiga, estresse e depressão. A escassez de programas de reabilitação agrava o quadro.</p>
+      <div class="hbox g"><strong>Lei de Cotas (Lei 8.213/91):</strong> empresas com ≥100 empregados devem preencher parte dos cargos com PCDs. 100–200 funcionários: 2%; 201–500: 3%; 501–1000: 4%; &gt;1001: 5%.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clbl">⚖️ Dados Epidemiológicos e Marco Legal</div><div class="ctit">Legislação e direitos da pessoa com deficiência auditiva</div>
+    <div class="cbod">
+      <table class="tbl">
+        <tr><th>Lei</th><th>Conteúdo Principal</th></tr>
+        <tr><td>Lei 13.146/2015 (LBI — Estatuto da Pessoa com Deficiência)</td><td>Assegura igualdade de oportunidades e proibição de discriminação. Define pessoa com deficiência como aquela com impedimento de longo prazo que obstrui participação plena.</td></tr>
+        <tr><td>Lei 14.768/2023</td><td>Define deficiência auditiva e valor referencial: média ≥41 dB nas freq. 500, 1000, 2000 e 3000 Hz.</td></tr>
+        <tr><td>Lei 14.191/2021</td><td>Educação bilíngue em Libras em escolas bilíngues para surdos.</td></tr>
+        <tr><td>Lei 10.098/2000 (Acessibilidade)</td><td>Inclui Libras, Braille, sistemas auditivos e TIC como meios de comunicação.</td></tr>
+        <tr><td>Lei 8.899/1994 (Passe Livre)</td><td>Transporte coletivo interestadual gratuito para PCDs carentes (renda ≤1 SM per capita).</td></tr>
+        <tr><td>BPC-LOAS</td><td>1 salário mínimo/mês para deficiente auditivo que comprove impossibilidade de participação plena e renda per capita ≤¼ SM.</td></tr>
+      </table>
+      <div class="hbox"><strong>RAS (Rede de Cuidados à Pessoa com Deficiência/SUS):</strong> ampliar, qualificar e diversificar estratégias para atenção às pessoas com deficiência auditiva, física, intelectual, visual, por rede integrada. Início precoce da reabilitação.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     QUESTÕES
+══════════════════════════════════ -->
+<div id="t-quiz" class="qatp">
+<div class="modp active">
+  <div class="stag">Treinamento Interativo</div>
+  <h2 class="stit">Questões — SP 2.2</h2>
+  <p class="ssub">25 questões de níveis variados. Clique para ver o resultado.</p>
+  <div class="scorerow"><div><div class="slbl">Acertos</div><div class="sval" id="qz-sv">0/0</div></div><div class="strk"><div class="sfil" id="qz-sf"></div></div><div class="spct" id="qz-sp">0%</div></div>
+  <div class="qdots" id="qz-dots"></div>
+  <div id="qz-cont"></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     FLASHCARDS (7 por QA = 56 total)
+══════════════════════════════════ -->
+<div id="t-flash" class="qatp">
+<div class="modp active">
+  <div class="stag">Memorização Ativa</div>
+  <h2 class="stit">Flashcards — 7 por QA (56 total)</h2>
+  <p class="ssub">Clique para virar. Organizados por questão de aprendizagem.</p>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <span style="font-size:13px;color:var(--mu);">56 cards organizados por QA</span>
+    <button class="fcreset" onclick="resetAllFC()">↺ Resetar todos</button>
+  </div>
+  <div id="fc-all-container"></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     PARETO
+══════════════════════════════════ -->
+<div id="t-pareto" class="qatp">
+<div class="modp active">
+  <div class="stag">Estratégia — Pareto 80/20</div>
+  <h2 class="stit">O que priorizar para a prova</h2>
+  <p class="ssub">Top 8 tópicos de altíssima prioridade + pegadinhas + Feynman.</p>
+
+  <div class="card">
+    <div class="clbl">🎯 Top 8 Prioridades</div><div class="ctit">Esses tópicos respondem por ~80% das questões</div>
+    <div class="cbod"><ul class="plist">
+      <li class="pitem"><div class="pnum">01</div><div class="ptxt"><h4>Weber + Rinne — interpretação clínica</h4><p>Qual teste lateraliza para onde em cada tipo de perda? Gap aéreo-ósseo. Casos clínicos são certeza.</p></div></li>
+      <li class="pitem"><div class="pnum">02</div><div class="ptxt"><h4>Transdução auditiva — sequência completa</h4><p>Tímpano (amplifica, não transduz!) → ossículos → perilinfa → membrana basilar → K⁺ endolinfa → Ca²⁺ → glutamato → NC VIII.</p></div></li>
+      <li class="pitem"><div class="pnum">03</div><div class="ptxt"><h4>Endolinfa vs. Perilinfa — composição e função</h4><p>Endolinfa: alta [K⁺], ducto coclear. Perilinfa: alta [Na⁺], rampas vestibular e timpânica. Por que K⁺ entra na célula ciliada?</p></div></li>
+      <li class="pitem"><div class="pnum">04</div><div class="ptxt"><h4>Tipos de perda auditiva — diferenciação</h4><p>Condutiva × Neurossensorial × Central: localização, via aérea/óssea, Rinne, Weber, audiograma.</p></div></li>
+      <li class="pitem"><div class="pnum">05</div><div class="ptxt"><h4>Via auditiva central — estações</h4><p>Gânglio espiral → núcleo coclear → oliva superior → colículo inferior → corpo geniculado medial → área 41 de Brodmann (Heschl).</p></div></li>
+      <li class="pitem"><div class="pnum">06</div><div class="ptxt"><h4>Canais semicirculares × Órgãos otolíticos</h4><p>Canais = rotação; Otolíticos = linear. Crista+cúpula vs. Mácula+otólitos. Utrículo (horizontal) vs. Sáculo (vertical).</p></div></li>
+      <li class="pitem"><div class="pnum">07</div><div class="ptxt"><h4>Membrana basilar e tonotopia</h4><p>Base (rígida, estreita) = agudos. Ápice (flexível, larga) = graves. Como o cérebro diferencia frequências?</p></div></li>
+      <li class="pitem"><div class="pnum">08</div><div class="ptxt"><h4>Impacto biopsicossocial + Legislação</h4><p>4 domínios: comunicação, família, autoestima/mental, trabalho. Leis 13.146, 14.768, 8.213 (cotas). BPC-LOAS.</p></div></li>
+    </ul></div>
+  </div>
+
+  <div class="card r">
+    <div class="clbl">⚠️ Pegadinhas Clássicas</div>
+    <div class="cbod"><div class="trapg">
+      <div class="trap"><h5>Tímpano: amplifica, NÃO transduz</h5><p>A transdução ocorre nas CÉLULAS CILIADAS, não na membrana timpânica. Questão frequente!</p></div>
+      <div class="trap"><h5>Weber condutiva → lado AFETADO</h5><p>Parece contra-intuitivo: o ouvido doente "escuta mais" o diapasão porque não tem ruído de fundo.</p></div>
+      <div class="trap"><h5>Rinne + NÃO significa audição normal</h5><p>Rinne positivo ocorre TANTO em audição normal QUANTO em perda neurossensorial!</p></div>
+      <div class="trap"><h5>Músculos: NÃO protegem de ruídos breves</h5><p>Estapédio e tensor do tímpano protegem de sons PROLONGADOS. Tiro/explosão: rápido demais.</p></div>
+      <div class="trap"><h5>Células ciliadas NÃO se regeneram</h5><p>Em mamíferos, a destruição das células ciliadas é IRREVERSÍVEL — diferente de peixes e aves.</p></div>
+      <div class="trap"><h5>Presbiacusia: altas freq. primeiro</h5><p>Começa com perda de 18.000-20.000 Hz → progride para 4.000-8.000 Hz. Afeta mais HOMENS.</p></div>
+      <div class="trap"><h5>Endolinfa preenche o DUCTO COCLEAR</h5><p>Não as rampas! Rampas vestibular e timpânica = perilinfa. O ducto coclear (escala MÉDIA) = endolinfa.</p></div>
+      <div class="trap"><h5>Olfato: NÃO passa pelo tálamo</h5><p>Única via sensorial sem relay talâmico — vai direto ao córtex piriforme e sistema límbico.</p></div>
+    </div></div>
+  </div>
+
+  <div class="card v">
+    <div class="clbl">🧪 Técnica de Feynman — 3 Etapas</div>
+    <div class="cbod">
+      <div class="fstep"><div class="fsn">1</div><div class="fsb"><h4>Explique a transdução auditiva sem consultar</h4><p>Do pavilhão auricular até o glutamato nas células ciliadas. Se travar nos líquidos cocleares ou na sequência de canais iônicos, esse é o ponto crítico.</p></div></div>
+      <div class="fstep"><div class="fsn">2</div><div class="fsb"><h4>Monte um caso clínico com Weber + Rinne</h4><p>Ex: Weber lateraliza à direita + Rinne negativo à direita → perda condutiva direita. Justifique fisiopatologicamente por que cada teste dá esse resultado.</p></div></div>
+      <div class="fstep"><div class="fsn">3</div><div class="fsb"><h4>Explique o impacto biopsicossocial para um leigo</h4><p>Se você conseguir explicar para alguém sem usar termos médicos por que a perda auditiva leva ao isolamento e depressão, você dominou a QA 8.</p></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ════════════════════════════════════
+//  DATA — QUESTÕES (25)
+// ════════════════════════════════════
+const questions=[
+  {s:"QA1 — Sensação",l:"easy",t:"Qual é a diferença correta entre sensação e percepção?",o:["Ambas são idênticas e universais entre indivíduos","Sensação é a detecção e codificação do estímulo; percepção é individualizada e vincula os sentidos à experiência","Percepção é objetiva; sensação é subjetiva","Sensação ocorre apenas no córtex cerebral"],c:1,e:"Sensação = codificar aspectos de energia que nos circunda (detecção). Percepção = vincular os sentidos a outros aspectos da existência — é individualizada e depende de experiências prévias."},
+  {s:"QA1 — Intensidade",l:"med",t:"Como o SNC codifica a intensidade de um estímulo?",o:["Pela amplitude dos potenciais de ação gerados","Pelo número de receptores ativados e pela frequência de PA (código de frequência)","Pelo tipo de neurotransmissor liberado","Pela duração do estímulo apenas"],c:1,e:"A intensidade é codificada por: (1) número de receptores ativados (código populacional) e (2) frequência de PA (código de frequência). O PA é tudo ou nada — sua amplitude não muda com a intensidade do estímulo."},
+  {s:"QA2 — Anatomia",l:"easy",t:"Qual a função principal dos ossículos da orelha média?",o:["Realizar a transdução sonora","Amplificar e transmitir as vibrações da membrana timpânica até a janela oval","Equilibrar a pressão entre orelha e faringe","Proteger a cóclea de sons de baixa frequência"],c:1,e:"Martelo → Bigorna → Estribo formam um sistema de alavanca que amplifica ~20x a vibração (área da membrana timpânica ~55mm² → janela oval ~3,2mm²) e transmitem para o meio líquido da cóclea."},
+  {s:"QA2 — Cóclea",l:"med",t:"A endolinfa do ducto coclear se caracteriza por:",o:["Alta [Na⁺] e baixa [K⁺], semelhante ao plasma","Alta [K⁺] (~150 mEq/L) e baixa [Na⁺] (~1 mEq/L), semelhante ao LIC","Composição igual à perilinfa das rampas","Alta concentração de Ca²⁺ para a transdução"],c:1,e:"Endolinfa: alta [K⁺], baixa [Na⁺] — composição única no organismo, mais parecida com o LIC. Perilinfa (rampas vestibular e timpânica): alta [Na⁺], semelhante ao LEC/plasma. Essa diferença é essencial para a transdução."},
+  {s:"QA2 — Tonotopia",l:"med",t:"Sons de ALTA frequência (agudos) fazem vibrar que região da membrana basilar?",o:["O ápice (helicotrema) — região mais flexível","A porção média — com igual sensibilidade para todas as frequências","A base — região mais estreita e rígida, próxima à janela oval","Toda a membrana basilar simultaneamente"],c:2,e:"Tonotopia: base (estreita/rígida) = sons agudos (altas freq.). Ápice (larga/flexível) = sons graves (baixas freq.). Essa codificação espacial da membrana basilar é preservada no córtex auditivo (organização tonotópica)."},
+  {s:"QA3 — Equilíbrio",l:"easy",t:"Os canais semicirculares detectam qual tipo de aceleração?",o:["Linear (andar, subir elevador)","Gravitacional (inclinação em relação à gravidade)","Angular (rotacional — girar a cabeça, rodopio)","Acústica (ondas sonoras de baixa frequência)"],c:2,e:"Canais semicirculares = aceleração ANGULAR/ROTACIONAL. Cada canal está em um plano diferente: horizontal (lateral), anterior e posterior. Os órgãos otolíticos (utrículo/sáculo) detectam aceleração linear e gravitacional."},
+  {s:"QA3 — Órgãos Otolíticos",l:"med",t:"O UTRÍCULO detecta aceleração linear em qual plano e inclinação da cabeça em qual direção?",o:["Vertical; inclinação para frente/trás","Horizontal; inclinação lateral da cabeça","Rotacional; inclinação para qualquer direção","Angular; posição da cabeça em relação à gravidade"],c:1,e:"Utrículo = mácula HORIZONTAL → detecta aceleração linear HORIZONTAL (andar, frear) e inclinação lateral da cabeça. Sáculo = mácula VERTICAL → detecta aceleração linear VERTICAL (elevador, pular)."},
+  {s:"QA4 — Transdução",l:"hard",t:"Na transdução auditiva, quando os estereocílios curvam-se em direção aos membros mais ALTOS do feixe, o que ocorre?",o:["Canais iônicos fecham → hiperpolarização → ↓ neurotransmissor","Canais de K⁺ e Ca²⁺ abrem → despolarização → ↑ glutamato → ↑ PA no neurônio auditivo","Apenas canais de Na⁺ abrem, como em neurônios convencionais","Potencial de ação gerado diretamente nos estereocílios"],c:1,e:"Curvatura em direção aos mais altos → filamentos de ligação (tip links) esticam → abrem canais de cátions → K⁺ e Ca²⁺ entram → despolarização → canais de Ca²⁺ voltagem-dependentes abrem → ↑ glutamato → ↑ PA."},
+  {s:"QA4 — Via Auditiva",l:"hard",t:"Qual estrutura do tronco encefálico é o PONTO DE CONVERGÊNCIA de todas as vias auditivas?",o:["Núcleo coclear (bulbo)","Oliva superior (ponte)","Colículo inferior (mesencéfalo)","Corpo geniculado medial (tálamo)"],c:2,e:"Todas as vias auditivas do tronco encefálico convergem para o COLÍCULO INFERIOR (mesencéfalo) antes de seguir ao corpo geniculado medial (NGM) no tálamo e então ao córtex auditivo primário (área 41 de Brodmann)."},
+  {s:"QA4 — Via Vestibular",l:"med",t:"A via vestibular consciente projeta para qual área cortical?",o:["Córtex auditivo primário (lobo temporal)","Giro pós-central (lobo parietal) — córtex somestésico","Área vestibular no lobo parietal, próximo ao território somestésico da face","Córtex visual primário (lobo occipital)"],c:2,e:"Via vestibular consciente: núcleos vestibulares → tálamo (núcleo ventral posterior) → área vestibular no LOBO PARIETAL próximo ao território somestésico da face (córtex somatossensorial primário). Diferente da via inconsciente que vai para o cerebelo."},
+  {s:"QA5 — Tipos de Perda",l:"med",t:"No teste de Weber, quando o som é percebido mais intensamente no ouvido AFETADO, qual o diagnóstico?",o:["Perda auditiva neurossensorial","Perda auditiva condutiva","Perda auditiva central","Audição normal (Weber indiferente)"],c:1,e:"Weber lateraliza ao lado AFETADO na perda CONDUTIVA — o ouvido doente não recebe ruído de fundo pela via aérea comprometida, então 'escuta melhor' o estímulo ósseo do diapasão. Na neurossensorial, lateraliza ao lado NÃO afetado."},
+  {s:"QA5 — Rinne",l:"med",t:"O teste de Rinne é NEGATIVO quando:",o:["A condução aérea dura mais que a óssea (normal)","A condução óssea dura mais que a aérea, indicando perda condutiva","O som é inaudível por ambas as vias","O paciente tem perda neurossensorial bilateral"],c:1,e:"Rinne NEGATIVO = óssea > aérea → perda CONDUTIVA. A cadeia ossicular está comprometida; a via óssea 'bypassa' o problema. Rinne POSITIVO = aérea > óssea = normal OU perda neurossensorial (ambas as vias igualmente comprometidas)."},
+  {s:"QA5 — Audiograma",l:"hard",t:"Um audiograma mostra gap aéreo-ósseo de 30 dB. Weber lateraliza à direita. Rinne negativo à direita e positivo à esquerda. Diagnóstico:",o:["Perda neurossensorial bilateral","Perda condutiva unilateral esquerda","Perda condutiva unilateral direita","Perda central com audiograma normal"],c:2,e:"Gap aéreo-ósseo ≥ 20 dB = condutiva. Weber ao lado AFETADO (direita). Rinne negativo no lado afetado (direita). Todos indicam perda CONDUTIVA UNILATERAL DIREITA (ex: otosclerose, otite média direita)."},
+  {s:"QA6 — Causas",l:"easy",t:"Por que as células ciliadas destruídas por ruído excessivo não se recuperam?",o:["Porque a endolinfa impede a regeneração","Porque em mamíferos as células ciliadas não se regeneram após destruição","Porque o nervo auditivo inibe a regeneração","Porque a membrana basilar destrói as novas células"],c:1,e:"Em mamíferos, as células ciliadas NÃO se regeneram após destruição — ao contrário de peixes e aves. Por isso a perda auditiva induzida por ruído é IRREVERSÍVEL. Pesquisas com células-tronco e terapia gênica buscam solução."},
+  {s:"QA6 — Presbiacusia",l:"med",t:"A presbiacusia tipicamente começa com perda em qual faixa de frequência?",o:["Baixas frequências (125–500 Hz)","Frequências médias da fala (1000–2000 Hz)","Altas frequências (18.000–20.000 Hz), progredindo para 4.000–8.000 Hz","Todas as frequências simultaneamente"],c:2,e:"Presbiacusia começa após os 20 anos com perda de ALTAS frequências (18.000–20.000 Hz), progredindo gradualmente para 4.000–8.000 Hz. Afeta mais homens. A capacidade de ouvir a fala é particularmente afetada pela perda nas altas frequências."},
+  {s:"QA6 — Proteção",l:"med",t:"Por que os músculos tensor do tímpano e estapédio NÃO protegem de tiros de arma de fogo?",o:["Porque esses músculos só respondem a sons de baixa frequência","Porque o som de uma arma não ativa o reflexo acústico","Porque o estímulo é breve e repentino — os músculos respondem lentamente demais","Porque esses músculos só protegem a orelha externa"],c:2,e:"Os músculos tensor do tímpano (NC V) e estapédio (NC VII) protegem de ruídos PROLONGADOS, mas não de ruídos BREVES e repentinos. O som de um tiro atinge intensidade máxima antes dos músculos conseguirem contrair o suficiente."},
+  {s:"QA7 — Diagnóstico",l:"easy",t:"O que a audiometria tonal limiar (ATL) avalia?",o:["Se o paciente compreende e interpreta os sons da fala","O limiar de detecção do som em diferentes frequências (Hz × dB)","A função vestibular por movimentos oculares","A integridade do nervo facial (NC VII)"],c:1,e:"ATL = mede o LIMIAR DE DETECÇÃO do som (mínimo necessário para ouvir) em diferentes frequências. Resultados plotados no audiograma. ATL NÃO avalia se o paciente ENTENDE o que escuta — isso é avaliação do processamento auditivo central."},
+  {s:"QA7 — Testes",l:"med",t:"O teste de Romberg avalia qual aspecto do equilíbrio?",o:["Equilíbrio dinâmico — marcha às cegas","Equilíbrio estático — posição ortostática com olhos fechados","Reflexo vestíbulo-ocular","Aceleração rotacional pelos canais semicirculares"],c:1,e:"Romberg = equilíbrio ESTÁTICO. Paciente em posição ortostática (calcanhares unidos, pés a 30°), braços ao longo do corpo, olhos FECHADOS por 1 minuto. Alterado se houver queda. Olhos fechados eliminam a compensação visual."},
+  {s:"QA7 — Exames",l:"hard",t:"O PEATE (Potencial Evocado Auditivo de Tronco Encefálico) é indicado para:",o:["Medir o limiar auditivo em frequências específicas da fala","Avaliar a mobilidade da membrana timpânica","Detectar tumores do NC VIII, lesões do tronco encefálico e neuropatia auditiva","Testar a discriminação de palavras faladas"],c:2,e:"PEATE = avalia a atividade neuroelétrica na via auditiva, do nervo ao córtex, em resposta a estímulo acústico. Indicações: neurinoma do acústico, lesões do tronco, monitorização cirúrgica, coma, neuropatia auditiva."},
+  {s:"QA7 — Diagnóstico",l:"med",t:"Qual exame avalia a IMPEDÂNCIA da orelha média sem exigir participação ativa do paciente?",o:["Audiometria tonal","Logoaudiometria (SRT)","Timpanometria","PEATE"],c:2,e:"Timpanometria = mede a impedância (conformidade) da orelha média sob variação de pressão de ar. Não requer participação do paciente — usa sonda com fonte sonora, microfone e regulador de pressão dentro do meato. Ideal para crianças com suspeita de efusão."},
+  {s:"QA8 — Biopsicossocial",l:"easy",t:"Por que a perda auditiva pode levar ao isolamento social?",o:["Apenas por limitações físicas de mobilidade","O constrangimento da deficiência contribui para privação social, medo de estigmatização e dificuldade de interação","Porque pessoas surdas não conseguem se comunicar de nenhuma forma","Apenas pelo aumento do volume de TV e rádio"],c:1,e:"A privação social decorre do constrangimento, medo de ser estigmatizado como 'surdo e incapaz', dificuldades de interação social. Com o tempo, fatores sociais, clínicos e psicológicos se potencializam, levando ao isolamento crescente e possíveis quadros depressivos."},
+  {s:"QA8 — Legislação",l:"med",t:"A Lei 14.768/2023 define deficiência auditiva como limitação auditiva com média aritmética de quantos dB nas frequências de 500, 1000, 2000 e 3000 Hz?",o:["25 dB ou mais","35 dB ou mais","41 dB ou mais","55 dB ou mais"],c:2,e:"Lei 14.768/2023: deficiência auditiva = média aritmética ≥ 41 dB nas frequências 500, 1000, 2000 e 3000 Hz por audiograma. Essa lei também define deficiência auditiva como limitação de longo prazo, uni ou bilateral, que obstrui participação plena na sociedade."},
+  {s:"QA2 — Anatomia",l:"hard",t:"A membrana timpânica AMPLIFICA as vibrações, mas NÃO realiza transdução. Onde ocorre a transdução do som?",o:["Na membrana timpânica (transformação mecano-elétrica)","Nos ossículos da orelha média","Nas células ciliadas do órgão de Corti","Na membrana basilar"],c:2,e:"A TRANSDUÇÃO ocorre nas CÉLULAS CILIADAS do órgão de Corti — é a conversão da energia mecânica (vibração) em sinal elétrico (potencial receptor). A membrana timpânica apenas amplifica as vibrações mecânicas; os ossículos apenas transmitem e amplificam."},
+  {s:"QA3 — BPPV",l:"hard",t:"O mecanismo da BPPV (Vertigem Posicional Paroxística Benigna) envolve:",o:["Excesso de endolinfa no labirinto (hidropisia)","Inflamação do nervo vestibular","Otólitos desprendidos da mácula do utrículo que caem no canal semicircular posterior","Lesão bilateral das células ciliadas da crista ampular"],c:2,e:"BPPV = otólitos (cristais de CaCO₃) desprendem-se da mácula do UTRÍCULO e migram para o canal semicircular POSTERIOR. Ao mudar de posição, estimulam erroneamente a crista ampular → vertigem posicional breve. Manobra de Epley os repositiona."},
+  {s:"QA5 — Tratamento",l:"med",t:"Qual é a indicação principal do IMPLANTE COCLEAR?",o:["Perda auditiva condutiva não responsiva a cirurgia","Perda auditiva central (lesão cortical)","Perda auditiva neurossensorial severa a profunda, com destruição das células ciliadas","Presbiacusia leve a moderada em idosos"],c:2,e:"Implante coclear: indicado em perda auditiva NEUROSSENSORIAL severa a profunda (células ciliadas destruídas). Estimula eletricamente as fibras do NC VIII diretamente. Em perdas condutivas, o tratamento é cirúrgico (ossicular) ou prótese convencional."}
+];
+
+// ════════════════════════════════════
+//  FLASHCARDS (7 por QA)
+// ════════════════════════════════════
+const allFC = [
+  // QA1
+  {qa:"QA 1 — Definições",q:"Defina SENSAÇÃO e PERCEPÇÃO",a:"<strong>Sensação</strong>: codificar aspectos de energia que nos circunda. <strong>Percepção</strong>: vincular os sentidos à existência — é individualizada."},
+  {qa:"QA 1 — Definições",q:"Quais as 3 propriedades fornecidas por todas as modalidades sensoriais?",a:"<strong>Localização espacial</strong> (de onde vem) | <strong>Intensidade</strong> (força) | <strong>Duração</strong> (quanto tempo)."},
+  {qa:"QA 1 — Definições",q:"Como a INTENSIDADE de um estímulo é codificada pelo SNC?",a:"Número de <strong>receptores ativados</strong> (código populacional) + <strong>frequência de PA</strong> (código de frequência). A amplitude do PA NÃO muda."},
+  {qa:"QA 1 — Definições",q:"Diferença entre receptores TÔNICOS e FÁSICOS",a:"<strong>Tônicos</strong>: adaptação lenta, mantêm disparo enquanto há estímulo. <strong>Fásicos</strong>: adaptação rápida, param se intensidade for constante."},
+  {qa:"QA 1 — Definições",q:"Dois componentes do equilíbrio",a:"<strong>Dinâmico</strong>: informações sobre movimento no espaço. <strong>Estático</strong>: posição vertical normal da cabeça em relação à gravidade."},
+  {qa:"QA 1 — Definições",q:"3 sistemas que determinam o equilíbrio",a:"<strong>Aparelho vestibular</strong> (orelha interna) + <strong>visão</strong> + <strong>proprioceptores</strong> (músculos, tendões, articulações)."},
+  {qa:"QA 1 — Definições",q:"O que é cinetose (enjoo de movimento)?",a:"<strong>Conflito entre os sentidos</strong>: o vestíbulo detecta movimento, mas os olhos não veem nenhum → enjoo."},
+  // QA2
+  {qa:"QA 2 — Órgãos Audição",q:"Função do pavilhão auricular e do meato acústico externo",a:"Pavilhão: <strong>capta e conduz</strong> as ondas sonoras. Meato: <strong>canal que leva o som ao tímpano</strong>; glândulas ceruminosas protegem de poeira e insetos."},
+  {qa:"QA 2 — Órgãos Audição",q:"Sequência dos ossículos e amplificação",a:"<strong>Martelo → Bigorna → Estribo → Janela Oval</strong>. Amplificam ~20x: tímpano ~55mm² → janela oval ~3,2mm²."},
+  {qa:"QA 2 — Órgãos Audição",q:"Função dos músculos da orelha média",a:"<strong>Tensor do tímpano</strong> (NC V) e <strong>Estapédio</strong> (NC VII) — protegem de ruídos prolongados. NÃO protegem de ruídos BREVES/repentinos."},
+  {qa:"QA 2 — Órgãos Audição",q:"Composição dos líquidos cocleares",a:"<strong>Perilinfa</strong> (rampas vest. e timpânica): alta [Na⁺], similar ao LEC. <strong>Endolinfa</strong> (ducto coclear): alta [K⁺] ~150 mEq/L, baixa [Na⁺]."},
+  {qa:"QA 2 — Órgãos Audição",q:"Tonotopia da membrana basilar",a:"<strong>Base</strong> (estreita/rígida) = sons <strong>agudos</strong> (altas freq.). <strong>Ápice</strong> (larga/flexível) = sons <strong>graves</strong> (baixas freq.)."},
+  {qa:"QA 2 — Órgãos Audição",q:"O que é o órgão de Corti e onde se localiza?",a:"Receptor auditivo sobre a <strong>membrana basilar</strong>, parcialmente coberto pela membrana tectória. Contém células ciliadas internas (1 fileira) e externas (3 fileiras)."},
+  {qa:"QA 2 — Órgãos Audição",q:"Função da Tuba de Eustáquio",a:"Conecta a cavidade timpânica à nasofaringe — <strong>equaliza a pressão</strong> (abre ao deglutir/bocejar). Também é rota de patógenos → otite média."},
+  // QA3
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"Canais semicirculares: quantos, planos e função",a:"<strong>3 canais</strong>: horizontal (lateral), anterior e posterior — cada um em um plano diferente. Detectam <strong>aceleração angular (rotacional)</strong>."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"Composição da CRISTA AMPULAR",a:"Células ciliadas + células de sustentação + <strong>CÚPULA</strong> (massa gelatinosa). Localizada na ampola de cada canal semicircular."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"Mecanismo de ativação dos canais semicirculares",a:"Cabeça gira → crânio e canais movem-se, mas <strong>endolinfa fica para trás (inércia)</strong> → inclina a cúpula → deflecte estereocílios → PA."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"Utrículo vs. Sáculo — planos e funções",a:"<strong>Utrículo</strong>: mácula horizontal → aceleração linear horizontal. <strong>Sáculo</strong>: mácula vertical → aceleração linear vertical (elevador)."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"Composição da MÁCULA",a:"Células ciliadas + células de sustentação + <strong>membrana otolítica</strong> (gelatinosa) + <strong>otólitos/estatocônios</strong> (cristais de CaCO₃)."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"O que é o CINOCÍLIO e sua função?",a:"Cílio convencional, único e longo, em cada célula ciliada vestibular. Estabelece o <strong>ponto de referência para a direção da curvatura</strong>."},
+  {qa:"QA 3 — Órgãos Equilíbrio",q:"BPPV: causa, mecanismo e tratamento",a:"Otólitos do <strong>utrículo</strong> desprendidos caem no <strong>canal semicircular posterior</strong>. Diagnóstico: Dix-Hallpike. Tratamento: <strong>Manobra de Epley</strong>."},
+  // QA4
+  {qa:"QA 4 — Neurofisiologia",q:"A membrana timpânica realiza transdução? Onde ocorre a transdução auditiva?",a:"<strong>NÃO</strong> — a membrana timpânica AMPLIFICA. A transdução ocorre nas <strong>CÉLULAS CILIADAS</strong> do órgão de Corti."},
+  {qa:"QA 4 — Neurofisiologia",q:"Sequência iônica da transdução auditiva",a:"Estereocílios deflectidos → canais abrem → <strong>K⁺ entra</strong> (da endolinfa) → despolariza → <strong>Ca²⁺ entra</strong> → <strong>glutamato</strong> liberado → PA no NC VIII."},
+  {qa:"QA 4 — Neurofisiologia",q:"Via auditiva central — 6 estações",a:"Gânglio espiral → <strong>Núcleo coclear</strong> (bulbo) → <strong>Oliva superior</strong> → <strong>Colículo inferior</strong> → <strong>NGM/Tálamo</strong> → <strong>Área 41</strong> (giro de Heschl, lobo temporal)."},
+  {qa:"QA 4 — Neurofisiologia",q:"Área de Wernicke — função",a:"Lobo temporal, adjacente ao córtex auditivo primário. <strong>Processa e interpreta a linguagem</strong> — dá sentido ao que se escuta. Lesão → afasia de Wernicke (compreensão prejudicada)."},
+  {qa:"QA 4 — Neurofisiologia",q:"4 projeções dos núcleos vestibulares",a:"1. <strong>Cerebelo</strong> (ajuste fino) | 2. <strong>Medula espinal</strong> (postura/tônus) | 3. <strong>Núcleos oculomotores</strong> (RVO) | 4. <strong>Tálamo → córtex parietal</strong> (consciência)."},
+  {qa:"QA 4 — Neurofisiologia",q:"Reflexo Vestíbulo-Ocular (RVO)",a:"Estabiliza o <strong>olhar durante movimento da cabeça</strong>. Permite correr olhando para um ponto fixo. Lesão → <strong>nistagmo patológico</strong>."},
+  {qa:"QA 4 — Neurofisiologia",q:"Por que a via auditiva é bilateral?",a:"Cada orelha projeta fibras <strong>ipsi e contralateral</strong> (projeção homo e contralateral). Por isso, lesões corticais unilaterais raramente causam <strong>surdez total</strong>."},
+  // QA5
+  {qa:"QA 5 — Tipos de Perda",q:"Weber na perda CONDUTIVA unilateral → lateraliza para qual lado?",a:"Lado <strong>AFETADO</strong> — o ouvido doente não tem ruído de fundo pela via aérea → 'escuta melhor' o estímulo ósseo."},
+  {qa:"QA 5 — Tipos de Perda",q:"Weber na perda NEUROSSENSORIAL unilateral → lateraliza para qual lado?",a:"Lado <strong>NÃO AFETADO</strong> (ouvido bom) — a cóclea afetada não processa o sinal transmitido pelos ossos."},
+  {qa:"QA 5 — Tipos de Perda",q:"Rinne positivo vs. negativo",a:"<strong>Positivo</strong> (aérea > óssea): normal OU neurossensorial. <strong>Negativo</strong> (óssea > aérea): CONDUTIVA. Gap ≥ 20 dB = condutiva."},
+  {qa:"QA 5 — Tipos de Perda",q:"Perda auditiva CENTRAL: características",a:"Limiares auditivos <strong>normais ou pouco alterados</strong>, mas <strong>prejuízo na interpretação</strong> do som. Lesão em vias centrais: tronco, tálamo, córtex temporal."},
+  {qa:"QA 5 — Tipos de Perda",q:"Tratamento da perda condutiva vs. neurossensorial",a:"<strong>Condutiva</strong>: aparelhos auditivos, cirurgia ossicular, drenagem de efusão. <strong>Neurossensorial</strong>: implante coclear, pesquisas com células-tronco e terapia gênica."},
+  {qa:"QA 5 — Tipos de Perda",q:"O que diferencia perda auditiva sensorial (cóclea) de neural (nervo)?",a:"<strong>Sensorial</strong>: destruição das células ciliadas (ex: ruído, ototóxico). <strong>Neural</strong>: lesão do NC VIII (ex: neurinoma, viral). Ambas = Neurossensorial."},
+  {qa:"QA 5 — Tipos de Perda",q:"Gap aéreo-ósseo: o que é e o que indica?",a:"Diferença ≥ 20 dB entre via aérea e óssea no audiograma = <strong>perda condutiva</strong>. Via óssea preservada, via aérea comprometida."},
+  // QA6
+  {qa:"QA 6 — Causas e Prevenção",q:"Por que a perda auditiva por ruído é irreversível?",a:"Células ciliadas destruídas por ruído excessivo <strong>NÃO se regeneram em mamíferos</strong>. Afeta predominantemente as altas frequências (4000 Hz)."},
+  {qa:"QA 6 — Causas e Prevenção",q:"Presbiacusia: início, progressão e grupos afetados",a:"Começa após 20 anos — perde <strong>altas frequências (18.000-20.000 Hz)</strong> primeiro, progredindo para 4.000-8.000 Hz. Afeta mais <strong>homens</strong>."},
+  {qa:"QA 6 — Causas e Prevenção",q:"Otite média: como causa perda auditiva?",a:"Líquido na cavidade timpânica → pressão nos ossículos → perda condutiva. Se recorrente: perfuração timpânica, calcificação ossicular → perda permanente."},
+  {qa:"QA 6 — Causas e Prevenção",q:"Principais medicamentos ototóxicos",a:"<strong>Aminoglicosídeos</strong> (gentamicina), <strong>cisplatina</strong>, furosemida (doses altas), AAS (doses altas), quinina. Perda bilateral nas altas freq."},
+  {qa:"QA 6 — Causas e Prevenção",q:"3 principais medidas preventivas da perda auditiva",a:"<strong>EPI</strong> (protetor auricular em locais barulhentos) | <strong>Evitar música alta</strong> com fones | <strong>Tratar infecções</strong> precocemente com médico (sem automedicação)."},
+  {qa:"QA 6 — Causas e Prevenção",q:"O cerume deve ser removido com cotonete?",a:"<strong>NÃO!</strong> A orelha é autolimpante. Cotonetes empurram e compactam o cerume. Limpar apenas a parte EXTERNA com pano macio. Remoção do cerume impactado: irrigação ou instrumento pelo profissional."},
+  {qa:"QA 6 — Causas e Prevenção",q:"Trauma acústico agudo: por que o músculo estapédio não protege?",a:"O som repentino (tiro, explosão) atinge intensidade máxima <strong>antes</strong> de o músculo conseguir contrair. Protege de ruídos PROLONGADOS, não de ruídos BREVES."},
+  // QA7
+  {qa:"QA 7 — Diagnóstico",q:"Diferença entre ATL e avaliação do processamento auditivo central",a:"<strong>ATL</strong>: detecta SE o indivíduo ESCUTA (limiar). <strong>Processamento auditivo central</strong>: avalia SE entende e interpreta o que escuta."},
+  {qa:"QA 7 — Diagnóstico",q:"Teste de Romberg: procedimento e o que avalia",a:"Posição ortostática, olhos fechados, 1 minuto. Avalia <strong>equilíbrio ESTÁTICO</strong>. Alterado se cair. Olhos fechados eliminam compensação visual."},
+  {qa:"QA 7 — Diagnóstico",q:"Teste de Fukuda: procedimento e critério de alteração",a:"60 passos elevando joelhos, olhos fechados, braços estendidos. Alterado: deslocamento > <strong>1m</strong> e/ou rotação > <strong>30°</strong>."},
+  {qa:"QA 7 — Diagnóstico",q:"O que avalia a timpanometria?",a:"<strong>Impedância da orelha média</strong> sob variação de pressão. Não exige participação ativa do paciente. Ideal para detectar efusão em orelha média (crianças)."},
+  {qa:"QA 7 — Diagnóstico",q:"PEATE: indicações principais",a:"Tumores do NC VIII, lesões do tronco encefálico, monitorização cirúrgica, avaliação do grau de coma, <strong>neuropatia auditiva</strong>."},
+  {qa:"QA 7 — Diagnóstico",q:"Marcha em estrela: qual teste e o que significa?",a:"<strong>Teste de Babinski-Weil</strong> (marcha às cegas). Desvio para o lado lesado durante a marcha → lesão vestibular <strong>UNILATERAL</strong> (tônus muscular assimétrico)."},
+  {qa:"QA 7 — Diagnóstico",q:"Logoaudiometria (SRT): o que mede?",a:"Limiar de recepção de fala — intensidade em que o paciente repete <strong>50% das palavras corretamente</strong>. Estima o nível de audição nas frequências da fala."},
+  // QA8
+  {qa:"QA 8 — Biopsicossocial",q:"Por que a audição é nosso sentido social mais importante?",a:"Mais do que qualquer outro sentido, <strong>conecta-nos com outras pessoas e com o mundo</strong>. Taxas de suicídio são maiores em surdos do que em cegos."},
+  {qa:"QA 8 — Biopsicossocial",q:"4 domínios do impacto biopsicossocial da perda auditiva",a:"1. <strong>Comunicação</strong> (estresse, constrangimento) | 2. <strong>Família</strong> (relações comprometidas) | 3. <strong>Autoestima/Saúde mental</strong> (depressão, isolamento) | 4. <strong>Trabalho</strong> (empregabilidade)."},
+  {qa:"QA 8 — Biopsicossocial",q:"Como a perda auditiva gradual dificulta o diagnóstico precoce?",a:"Quando ocorre <strong>gradualmente</strong>, a própria limitação <strong>não é percebida pelo indivíduo</strong> — normaliza o déficit. Por isso a triagem auditiva periódica é essencial."},
+  {qa:"QA 8 — Biopsicossocial",q:"Lei 14.768/2023: critério para deficiência auditiva",a:"Limitação auditiva com <strong>média aritmética ≥ 41 dB</strong> nas frequências 500, 1000, 2000 e 3000 Hz por audiograma."},
+  {qa:"QA 8 — Biopsicossocial",q:"Lei de Cotas (8.213/91): percentuais por tamanho de empresa",a:"100–200: <strong>2%</strong> | 201–500: <strong>3%</strong> | 501–1000: <strong>4%</strong> | >1001: <strong>5%</strong> de vagas para PCDs."},
+  {qa:"QA 8 — Biopsicossocial",q:"BPC-LOAS para deficiente auditivo: critérios",a:"Comprovação da deficiência auditiva (audiograma); impossibilidade de participação plena; prazo mínimo 2 anos; renda per capita familiar ≤ <strong>¼ do salário mínimo</strong>."},
+  {qa:"QA 8 — Biopsicossocial",q:"Epidemiologia da deficiência auditiva no Brasil",a:">10 milhões com alguma deficiência auditiva; <strong>2,7 milhões</strong> com surdez profunda. 5% da população brasileira. Previsão para 2050: 322 milhões (global)."}
+];
+
+// ════════════════════════════════════
+//  QUIZ ENGINE
+// ════════════════════════════════════
+const state={c:0,a:0};
+const letters=['A','B','C','D'];
+
+function buildQuiz(){
+  const cont=document.getElementById('qz-cont');
+  const dots=document.getElementById('qz-dots');
+  questions.forEach((q,i)=>{
+    const dot=document.createElement('div');dot.className='qdot';dot.id=`qz-d${i}`;dots.appendChild(dot);
+    const card=document.createElement('div');card.className='qcard';
+    card.innerHTML=`<div class="qmeta"><span class="qtag ${q.l==='easy'?'easy':q.l==='med'?'med':'hard'}">${q.l==='easy'?'Fácil':q.l==='med'?'Médio':'Difícil'}</span><span class="qsub">${q.s}</span><span class="qnum">Q${String(i+1).padStart(2,'0')}</span></div><div class="qtxt">${q.t}</div><div class="opts" id="qz-opts${i}">${q.o.map((o,j)=>`<button class="opt" onclick="ans(${i},${j},${q.c})" id="qz-o${i}${j}"><span class="optl">${letters[j]}</span>${o}</button>`).join('')}</div><div class="qfb" id="qz-fb${i}"></div>`;
+    cont.appendChild(card);
+  });
+}
+
+function ans(qi,chosen,correct){
+  const opts=document.querySelectorAll(`#qz-opts${qi} .opt`);
+  opts.forEach(b=>b.disabled=true);
+  const fb=document.getElementById(`qz-fb${qi}`);
+  const dot=document.getElementById(`qz-d${qi}`);
+  state.a++;
+  if(chosen===correct){opts[chosen].classList.add('correct');fb.className='qfb show cfb';fb.innerHTML=`✅ <strong>Correto!</strong> ${questions[qi].e}`;dot.classList.add('ok');state.c++;}
+  else{opts[chosen].classList.add('wrong');opts[correct].classList.add('correct');fb.className='qfb show wfb';fb.innerHTML=`❌ <strong>Incorreto.</strong> ${questions[qi].e}`;dot.classList.add('err');}
+  const pct=Math.round(state.c/state.a*100);
+  document.getElementById('qz-sv').textContent=`${state.c}/${state.a}`;
+  document.getElementById('qz-sp').textContent=`${pct}%`;
+  document.getElementById('qz-sf').style.width=pct+'%';
+}
+
+// ════════════════════════════════════
+//  FLASHCARDS
+// ════════════════════════════════════
+function buildFC(){
+  const cont=document.getElementById('fc-all-container');
+  // Group by QA
+  const groups={};
+  allFC.forEach((fc,i)=>{
+    if(!groups[fc.qa])groups[fc.qa]=[];
+    groups[fc.qa].push({...fc,idx:i});
+  });
+  Object.keys(groups).forEach(qa=>{
+    const sec=document.createElement('div');sec.style.marginBottom='24px';
+    const hdr=document.createElement('div');hdr.className='fc-hdr';
+    hdr.innerHTML=`<span class="fc-section-label">${qa}</span><span style="font-size:11px;color:var(--mu);">${groups[qa].length} cards</span>`;
+    sec.appendChild(hdr);
+    const grid=document.createElement('div');grid.className='fcgrid';grid.id=`fg-${qa.replace(/\s/g,'_')}`;
+    groups[qa].forEach((fc,j)=>{
+      const card=document.createElement('div');card.className='fc';
+      card.innerHTML=`<div class="fci"><div class="fcf"><div class="fcn">Card ${j+1}/${groups[qa].length}</div><div class="fcq">${fc.q}</div><div class="fch">Clique para revelar →</div></div><div class="fcb"><div class="fctag">Resposta</div><div class="fca">${fc.a}</div></div></div>`;
+      card.addEventListener('click',()=>card.classList.toggle('flip'));
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    cont.appendChild(sec);
+  });
+}
+
+function resetAllFC(){document.querySelectorAll('.fc').forEach(c=>c.classList.remove('flip'));}
+
+// ════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════
+document.querySelectorAll('.qabtn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.qabtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const qa=btn.dataset.qa;
+  document.querySelectorAll('.qatp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(`t-${qa}`).classList.add('active');
+}));
+
+// INIT
+buildQuiz();
+buildFC();
+</script>
+</body>
+</html>

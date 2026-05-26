@@ -7,25 +7,35 @@ const groq = new Groq({
 
 export async function POST(req: Request) {
   try {
-    const { theme, sources } = await req.json();
+    const { theme } = await req.json();
 
     const systemPrompt = `
-      Você é um tutor médico especialista em metodologia PBL e nas referências: Semiologia Médica (Porto), Propedêutica (Bates), Guyton (Fisiologia) e Diretrizes Brasileiras.
-      Seu objetivo é gerar um material de estudo completo e estruturado baseado no tema fornecido pelo estudante.
+      Você é um tutor médico experiente, especialista em PBL e em aprendizado acelerado.
+      Sua tarefa é gerar um HTML ÚNICO, COMPLETO, MODERNO e TOTALMENTE FUNCIONAL baseado no tema fornecido.
+      
+      ESTILO E DESIGN:
+      - Use Modo Escuro moderno (Fundo #06080d).
+      - Use fontes elegantes (Playfair Display para títulos, Plus Jakarta Sans para texto).
+      - O design deve ser baseado em abas (Tabs) para organizar o conteúdo.
+      - Use cores: Verde-água (#42c97a) como principal, Azul (#5bb8f5) para links/destaques.
+      - O layout deve ser responsivo e limpo (Shadcn/UI style).
 
-      O retorno DEVE ser um objeto JSON estritamente com as seguintes chaves:
-      - "tutorial": Texto rico em Markdown com: Fisiologia, Fisiopatologia, Quadro Clínico e Manejo.
-      - "questions": Array de 5 objetos com { "question": string, "options": string[], "answer": number, "explanation": string }.
-      - "flashcards": Array de 10 objetos com { "front": string, "back": string }.
-      - "pareto": Array de 5 pontos principais (os 20% que geram 80% do conhecimento).
+      ESTRUTURA OBRIGATÓRIA DAS ABAS:
+      1. Tutoria: Explicação passo a passo, relações importantes, conceitos essenciais, fisiologia e fisiopatologia.
+      2. Questões: 20 questões interativas. Ao clicar na alternativa, deve mudar para verde (acerto) ou vermelho (erro). Abaixo, exibir explicação clara e contador de acertos.
+      3. Flashcards: 20 flashcards interativos que viram ao clicar.
+      4. Quadros Comparativos: Tabelas organizadas comparando pontos chave.
+      5. Pareto (80/20): O que mais cai, pegadinhas, termos essenciais e dicas de prova.
 
-      REGRAS:
-      1. Use terminologia médica correta e brasileira.
-      2. Cite as fontes (Porto/Bates/Diretrizes) ao longo do texto.
-      3. O conteúdo deve ser profundo o suficiente para um estudante de medicina.
+      REFERÊNCIAS BASE:
+      - Porto (Semiologia Médica), Bates (Propedêutica), Robbins (Patologia), Guyton (Fisiologia).
+
+      SAÍDA:
+      - Retorne APENAS o código HTML completo dentro de uma string. Não inclua explicações fora do código.
+      - O HTML deve conter todo o CSS e JS (Vanilla) necessários dentro das tags <style> e <script>.
     `;
 
-    const userPrompt = `Gere uma tutoria completa para o tema: ${theme}. Fontes selecionadas: ${sources.join(", ")}.`;
+    const userPrompt = `Gere o guia de estudos completo em HTML para o tema: ${theme}`;
 
     const response = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
@@ -33,14 +43,17 @@ export async function POST(req: Request) {
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ],
-      response_format: { type: "json_object" },
-      temperature: 0.7,
+      temperature: 0.6,
     });
 
-    const content = JSON.parse(response.choices[0].message.content || "{}");
-    return NextResponse.json(content);
+    const htmlContent = response.choices[0].message.content || "";
+    
+    // Limpar possíveis blocos de código markdown se a IA incluir
+    const cleanHtml = htmlContent.replace(/```html/g, "").replace(/```/g, "").trim();
+
+    return NextResponse.json({ html: cleanHtml });
   } catch (error) {
     console.error("Tutoria Error:", error);
-    return NextResponse.json({ error: "Falha ao gerar tutoria" }, { status: 500 });
+    return NextResponse.json({ error: "Falha ao gerar tutoria customizada" }, { status: 500 });
   }
 }
